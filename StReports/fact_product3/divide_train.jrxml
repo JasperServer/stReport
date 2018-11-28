@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divide_train" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8bd3b774-e99e-4554-bc6b-e3249c4745cd">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divide_train"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/divide_train_files/main_jrxml"/>
+	<parameter name="getFlag" class="java.lang.String"/>
+	<parameter name="getStnCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select train_nbr           
+     ,rpt_car_num       
+     ,car_number_t       
+     ,car_number_q       
+     ,rpt_time     
+from bcdf.station_train
+where rpt_time >= date (current_date - 2) + time '18:00:00'
+and rpt_time < date (current_date -1) + time '18:00:00' 
+and stn_code =  $P{getStnCode}  --'IXH'
+and in_out_flag =  $P{getFlag}   --'0']]>
+	</queryString>
+	<field name="train_nbr" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="train_nbr"/>
+	</field>
+	<field name="rpt_car_num" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="rpt_car_num"/>
+	</field>
+	<field name="car_number_t" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="car_number_t"/>
+	</field>
+	<field name="car_number_q" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="car_number_q"/>
+	</field>
+	<field name="rpt_time" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="rpt_time"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="30" uuid="f5ec96fd-c4c1-4475-b7d4-7bc30330e12a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dccd69c4-cdbe-43b5-a94b-eb5b3ac0a267"/>
+				</reportElement>
+				<text><![CDATA[train_nbr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="30" uuid="35cc4fd5-3d6d-4b58-b7ba-dc3ffa09a009">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="632ad8ff-0ba3-4d1d-bfdb-25b0efdf9d08"/>
+				</reportElement>
+				<text><![CDATA[rpt_car_num]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="30" uuid="d9136734-477b-4900-83f5-46adc500c53a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59bbe35b-ea98-4651-8a8a-60603c740605"/>
+				</reportElement>
+				<text><![CDATA[car_number_t]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="30" uuid="72fb368e-066a-42eb-a5c6-e1788035f07c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef85598e-f443-4b3c-84bd-2903a9dc88fa"/>
+				</reportElement>
+				<text><![CDATA[car_number_q]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="30" uuid="614e314e-e071-4aba-aaee-05efb8c2fa76">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80a7d221-f7ad-4247-a16c-0efea0dc3e32"/>
+				</reportElement>
+				<text><![CDATA[rpt_time]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="30" uuid="cb82e24e-5635-4a7b-b2bd-5e2dce26b4c0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dccd69c4-cdbe-43b5-a94b-eb5b3ac0a267"/>
+					<property name="net.sf.jasperreports.export.json.path" value="train_nbr"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{train_nbr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="30" uuid="b9f42b8e-cb4a-42a5-862c-ff5e1c43c86a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="632ad8ff-0ba3-4d1d-bfdb-25b0efdf9d08"/>
+					<property name="net.sf.jasperreports.export.json.path" value="rpt_car_num"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{rpt_car_num}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="30" uuid="9e769fac-ec3d-4d45-afcd-d67d9ad24205">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59bbe35b-ea98-4651-8a8a-60603c740605"/>
+					<property name="net.sf.jasperreports.export.json.path" value="car_number_t"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{car_number_t}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="30" uuid="075159d6-edeb-4467-a62c-52c9ad73e979">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef85598e-f443-4b3c-84bd-2903a9dc88fa"/>
+					<property name="net.sf.jasperreports.export.json.path" value="car_number_q"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{car_number_q}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="30" uuid="2336b095-34ef-4778-9969-caac87bd92d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80a7d221-f7ad-4247-a16c-0efea0dc3e32"/>
+					<property name="net.sf.jasperreports.export.json.path" value="rpt_time"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{rpt_time}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

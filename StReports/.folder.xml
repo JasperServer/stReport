@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder exportedWithPermissions="true">
+    <parent>/reports</parent>
+    <name>st_db</name>
+    <label>st_db</label>
+    <description></description>
+    <creationDate>2018-11-07T15:51:42.902+08:00</creationDate>
+    <updateDate>2018-11-07T15:51:42.902+08:00</updateDate>
+    <folder>fact_product</folder>
+    <folder>lj18</folder>
+</folder>

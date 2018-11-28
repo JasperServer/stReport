@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="nowCar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f01670c8-70d0-453d-aa7b-bbf2c245dbb2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/nowCar"/>
+	<queryString language="SQL">
+		<![CDATA[select count(*) as value,'P' as name
+from integration.stationcar where  czjm ='P'
+UNION ALL
+select count(*) as value,'C' as name
+from integration.stationcar where  czjm ='C'
+UNION ALL
+select count(*) as value,'N' as name
+from integration.stationcar where  czjm ='N'
+UNION ALL
+select count(*) as value,'G' as name
+from integration.stationcar where  czjm ='G'
+UNION ALL
+select count(*) as value,'B' as name
+from integration.stationcar where  czjm ='B'
+UNION ALL
+select count(*) as value,'其他' as name
+from integration.stationcar where  czjm  not in('P','C','N','G','B') or czjm isnull]]>
+	</queryString>
+	<field name="value" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="ae4e881f-05fa-4c81-9f3f-bb1dde27c066">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7f2c4aee-eccd-40d1-9d8e-e5cc2801b709"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="7a9fc9f9-25c2-4444-a576-7f81568e0b28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34282f0f-6b8e-48f4-9e0f-8bce96c2091c"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="9364ee55-bae1-4327-ab6c-6220c67ae495">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7f2c4aee-eccd-40d1-9d8e-e5cc2801b709"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="b7e0c992-e59a-4a1b-ad01-fda776d0f05d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34282f0f-6b8e-48f4-9e0f-8bce96c2091c"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

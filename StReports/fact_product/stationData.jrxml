@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stationData" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1e5bed2f-454f-4672-a3f9-a592055a7249">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/stationData"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/stationData_files/main_jrxml"/>
+	<parameter name="stationCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+CASE WHEN tb.keepnum is NULL THEN 0
+ELSE tb.keepnum END AS keepnum,
+CASE WHEN tb.loadnum is NULL THEN 0
+ELSE tb.loadnum END AS loadnum,
+CASE WHEN tb.uploadnum is NULL THEN 0
+ELSE tb.uploadnum END AS uploadnum,
+(select coalesce(round(sum(cts),2),0) 
+from
+(select distinct station_code,unit_code from dw.dim_station) as a
+left join 
+(
+select distinct zmlm
+      ,ch
+      ,fcsj
+      ,arrive_time
+      ,case when count(*) = 0 then 1 else count(*) end as zycs
+      ,round((extract(epoch from fcsj - arrive_time))::numeric/3600::numeric/(case when count(*) = 0 then 1 else count(*) end)::numeric,2) as cts
+from basic.tsview
+where jobtype in ('装车','卸车')
+group by zmlm
+        ,ch
+        ,fcsj
+        ,arrive_time
+order by zmlm
+        ,ch
+) as b
+on a.station_code = b.zmlm 
+where a.station_code =  $P{stationCode} 
+group by a.station_code) AS stime,
+CASE WHEN tb.mtime is NULL THEN 0
+ELSE tb.mtime END AS mtime
+ FROM(
+select case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.byl) 
+	         from dw.fact_product fp
+                 ,dw.dim_date dd
+				 ,dw.dim_station ds
+			 where fp.datekey = dd.datekey
+			   and fp.station_code = ds.station_code
+			   and fp.station_code =$P{stationCode} 
+			   and dd.datekey = to_char(CURRENT_DATE-1, 'YYYYMMDD') ) --replace(current_date,'-',''))
+		else  (select sum(fp.byl) 
+	         from dw.fact_product fp
+                 ,dw.dim_date dd
+				 ,dw.dim_station ds
+			 where fp.datekey = dd.datekey
+			   and fp.station_code = ds.station_code
+			   and fp.station_code = $P{stationCode} 
+			   and dd.datekey = to_char(CURRENT_DATE, 'YYYYMMDD'))  --replace(current_date + 1,'-',''))
+	    end as keepNum
+	   ,case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.zcs) 
+	         from dw.fact_product fp
+                 ,dw.dim_date dd
+				 ,dw.dim_station ds
+			 where fp.datekey = dd.datekey
+			   and fp.station_code = ds.station_code
+			   and fp.station_code = $P{stationCode} 
+			   and dd.datekey = to_char(CURRENT_DATE-1, 'YYYYMMDD')) --replace(current_date,'-','') )
+		else  (select sum(fp.zcs) 
+	         from dw.fact_product fp
+                 ,dw.dim_date dd
+				 ,dw.dim_station ds
+			 where fp.datekey = dd.datekey
+			   and fp.station_code = ds.station_code
+			   and fp.station_code =$P{stationCode} 
+			   and dd.datekey = to_char(CURRENT_DATE-1, 'YYYYMMDD'))--replace(current_date + 1,'-',''))
+	    end as loadNum
+		,case when now() < (current_date + time '18:00:00')
+         then  (select sum(fp.xcs) 
+	         from dw.fact_product fp
+                 ,dw.dim_date dd
+				 ,dw.dim_station ds
+			 where fp.datekey = dd.datekey
+			   and fp.station_code = ds.station_code
+			   and fp.station_code = $P{stationCode} 
+			   and dd.datekey = to_char(CURRENT_DATE-1, 'YYYYMMDD'))--replace(current_date,'-','') )
+		 else  (select sum(fp.xcs) 
+	         from dw.fact_product fp
+                 ,dw.dim_date dd
+				 ,dw.dim_station ds
+			 where fp.datekey = dd.datekey
+			   and fp.station_code = ds.station_code
+			   and fp.station_code = $P{stationCode}  
+			   and dd.datekey = to_char(CURRENT_DATE-1, 'YYYYMMDD'))--replace(current_date + 1,'-',''))
+	     end as upLoadNum
+		,sum(fp.ts) as sTime,sum(fp.zs) as mTime
+from dw.fact_product fp
+    ,dw.dim_date dd
+	,dw.dim_station ds
+where fp.datekey = dd.datekey
+  and fp.station_code = ds.station_code
+  and fp.station_code = $P{stationCode}
+	and fp.datekey = to_char(CURRENT_DATE-1, 'YYYYMMDD')--replace(current_date,'-','') ) 'BZH'
+) tb]]>
+	</queryString>
+	<field name="keepnum" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="keepnum"/>
+	</field>
+	<field name="loadnum" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="loadnum"/>
+	</field>
+	<field name="uploadnum" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="uploadnum"/>
+	</field>
+	<field name="stime" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="stime"/>
+	</field>
+	<field name="mtime" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="mtime"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="30" uuid="33e7a88a-5e28-41ef-a177-fd210ebbb7c1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2cc48605-b9c4-4659-8de3-a9a030b5bc26"/>
+				</reportElement>
+				<text><![CDATA[keepnum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="30" uuid="ae3ec775-7c71-42fa-bbad-a2e5447550e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8eb54d51-f401-4bb6-81c0-c47fc8e3dae7"/>
+				</reportElement>
+				<text><![CDATA[loadnum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="30" uuid="d720850a-9cf1-4c85-a46c-a27af4c4f29b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ef89c89-b063-438b-b690-7d7763366844"/>
+				</reportElement>
+				<text><![CDATA[uploadnum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="30" uuid="681a7a2e-c07c-4d52-b836-57fe7c74d7f8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2052da1-c084-472e-8e85-48076e89d9fc"/>
+				</reportElement>
+				<text><![CDATA[stime]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="30" uuid="dafabd03-ef9f-483c-a0c0-017815f3a53c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dd84b41d-3183-49d9-9a98-5b140864d455"/>
+				</reportElement>
+				<text><![CDATA[mtime]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="30" uuid="b5771bbd-dba2-4d29-b8f3-bbb0175f7e96">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2cc48605-b9c4-4659-8de3-a9a030b5bc26"/>
+					<property name="net.sf.jasperreports.export.json.path" value="keepnum"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{keepnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="30" uuid="c331db35-5a73-4301-b710-0630731a9c2f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8eb54d51-f401-4bb6-81c0-c47fc8e3dae7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="loadnum"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{loadnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="30" uuid="05443549-e672-4491-b92c-0343da31b691">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ef89c89-b063-438b-b690-7d7763366844"/>
+					<property name="net.sf.jasperreports.export.json.path" value="uploadnum"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{uploadnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="30" uuid="0aba1ace-ff5c-42cf-98c5-8774f6ddf212">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2052da1-c084-472e-8e85-48076e89d9fc"/>
+					<property name="net.sf.jasperreports.export.json.path" value="stime"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{stime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="30" uuid="89869655-13c9-4405-b3d7-652ee31f2075">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dd84b41d-3183-49d9-9a98-5b140864d455"/>
+					<property name="net.sf.jasperreports.export.json.path" value="mtime"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mtime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

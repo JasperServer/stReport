@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mainStationKeep" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed2fbde9-f5c1-4e14-9ad3-855804d3a848">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/mainStationKeep"/>
+	<queryString language="SQL">
+		<![CDATA[select count(*) as value,'徐州北' as name
+from integration.stationcar
+where stationcode in ('XDH')
+union ALL
+select count(*) as value,'阜阳北' as name
+from integration.stationcar
+where stationcode in ('FEH')
+union ALL
+select count(*) as value,'南京东' as name
+from integration.stationcar
+where stationcode in ('NDH')
+union ALL
+select count(*) as value,'芜湖东' as name
+from integration.stationcar
+where stationcode in ('WOH')
+union ALL
+select count(*) as value,'乔司' as name
+from integration.stationcar
+where stationcode in ('QAH')
+union ALL
+select count(*) as value,'南翔' as name
+from integration.stationcar
+where stationcode in ('NXH')
+union ALL
+select count(*) as value,'金华东' as name
+from integration.stationcar
+where stationcode in ('PHH')
+union ALL
+select count(*) as value,'合肥东' as name
+from integration.stationcar
+where stationcode in ('VDH')
+union ALL
+select count(*) as value,'宁波北' as name
+from integration.stationcar
+where stationcode in ('HWH')
+union ALL
+select count(*) as value,'芦岭' as name
+from integration.stationcar
+where stationcode in ('LVH')]]>
+	</queryString>
+	<field name="value" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="7b87d143-3be4-4a39-bdda-445451b8930a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2498053d-e22c-47c2-8a70-e5271feb9687"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="c77d0da0-8bd7-4bef-b332-af49523956d8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2ad3ddf-7276-4267-83f0-9348666b8af3"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="bae23b3d-5a52-4d1b-9bb8-b5e829899b22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2498053d-e22c-47c2-8a70-e5271feb9687"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="8048adb7-d1ac-4ed9-bc22-f00162ce83cc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2ad3ddf-7276-4267-83f0-9348666b8af3"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

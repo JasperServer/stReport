@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divideinfo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c07055ca-0441-40f6-bcd7-8e2cc13faf3a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/divideinfo"/>
+	<queryString language="SQL">
+		<![CDATA[select DISTINCT entry001 AS enterLie
+     ,entry002 AS enterLiang
+     ,entry046 AS outLie
+     ,entry047 AS outLiang
+		, unit AS gateName
+		, bu.unit_name as name
+from lj18.data_date as dd, basic_unit bu
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'YB1' and  rtrim(ltrim(unit))  in('UVH','IXH','VWH','WSH','YCH','XJH','DFH','XTH','FEH','RTH','CEH') and dd.unit=bu.unit_code]]>
+	</queryString>
+	<field name="enterlie" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="enterlie"/>
+	</field>
+	<field name="enterliang" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="enterliang"/>
+	</field>
+	<field name="outlie" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="outlie"/>
+	</field>
+	<field name="outliang" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="outliang"/>
+	</field>
+	<field name="gatename" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gatename"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="30" uuid="49f3e120-8ec7-429a-b6be-082c80b37c68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="751d66cd-0912-455f-adb3-c888fff1392a"/>
+				</reportElement>
+				<text><![CDATA[enterlie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="92" height="30" uuid="18b57160-23cb-43b6-901e-435f8c76312a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4102ea27-64d8-440e-858d-1eb9157a88b6"/>
+				</reportElement>
+				<text><![CDATA[enterliang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="92" height="30" uuid="c9732221-3b27-46a7-896c-3cb337e31416">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4e4de91-7cdc-431c-abc2-c77e82e4e9fb"/>
+				</reportElement>
+				<text><![CDATA[outlie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="92" height="30" uuid="6e119bc4-c4cd-4f8a-8f02-28dd375ec0ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0500827-1f4c-4f97-b96c-975de99d24c9"/>
+				</reportElement>
+				<text><![CDATA[outliang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="92" height="30" uuid="7ca528c4-70ac-4972-960f-1a0fc369b34e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27b7efa1-6f1e-4090-aefc-dab05303c02e"/>
+				</reportElement>
+				<text><![CDATA[gatename]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="92" height="30" uuid="81861025-26e1-41f7-8afd-f4d5252a670c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6fc82e53-daf6-407b-b6c4-b35c060671d8"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="95" height="30" uuid="e17cf352-7b32-486f-a9df-28ebfae5a268">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="751d66cd-0912-455f-adb3-c888fff1392a"/>
+					<property name="net.sf.jasperreports.export.json.path" value="enterlie"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{enterlie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="92" height="30" uuid="06a032a2-205d-4435-9ce8-1d269fe24a28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4102ea27-64d8-440e-858d-1eb9157a88b6"/>
+					<property name="net.sf.jasperreports.export.json.path" value="enterliang"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{enterliang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="92" height="30" uuid="fdfd8939-4ab2-43d1-bae4-e69c27eb0925">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4e4de91-7cdc-431c-abc2-c77e82e4e9fb"/>
+					<property name="net.sf.jasperreports.export.json.path" value="outlie"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{outlie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="92" height="30" uuid="ec62b604-ab5f-4791-8f86-bc2749bf3ed7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0500827-1f4c-4f97-b96c-975de99d24c9"/>
+					<property name="net.sf.jasperreports.export.json.path" value="outliang"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{outliang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="92" height="30" uuid="fae0af77-a5a1-45c2-aa6f-645b39bf1425">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27b7efa1-6f1e-4090-aefc-dab05303c02e"/>
+					<property name="net.sf.jasperreports.export.json.path" value="gatename"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{gatename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="30" uuid="270582c9-00bd-42b8-b84b-2d7c9276be86">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6fc82e53-daf6-407b-b6c4-b35c060671d8"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

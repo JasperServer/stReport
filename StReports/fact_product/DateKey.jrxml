@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DateKey" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87f79acd-eaba-47d8-a191-65d1cac9764d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/DateKey"/>
+	<queryString>
+		<![CDATA[select '序号' as label,'order' as prop
+union all
+select '车种' as label,'type' as prop
+union all
+select '车号' as label,'number' as prop
+union all
+select '载重' as label,'load' as prop  
+union all
+select '品种' as label,'goods' as prop
+union all
+select '发站' as label,'goStation' as prop
+union all
+select '发货人' as label,'consignee' as prop
+union all
+select '到站' as label,'arriveStation' as prop
+union all
+select '记事' as label,'note' as prop
+union all
+select '运单号' as label,'waybill' as prop]]>
+	</queryString>
+	<field name="label" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="label"/>
+	</field>
+	<field name="prop" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="prop"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="b46951b6-0456-4820-b071-2e74cc83eb12">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7cad2496-7172-4eaf-a67e-5744b613be07"/>
+				</reportElement>
+				<text><![CDATA[label]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="3bd592db-2a7d-4e1e-b60f-2d2ca7ace73f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97a80f89-8cbb-4fe8-8247-514496946b93"/>
+				</reportElement>
+				<text><![CDATA[prop]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="90ab07ca-f841-4b90-a89f-1332e026fe63">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7cad2496-7172-4eaf-a67e-5744b613be07"/>
+					<property name="net.sf.jasperreports.export.json.path" value="label"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="f652b0a1-6fc4-4639-8ffd-4236b0c8c8af">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97a80f89-8cbb-4fe8-8247-514496946b93"/>
+					<property name="net.sf.jasperreports.export.json.path" value="prop"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{prop}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

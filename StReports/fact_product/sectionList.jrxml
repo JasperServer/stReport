@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sectionList" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f029408-7221-4ba1-b1ba-a8c5ea68dcdd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/sectionList"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="417"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="578"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="697"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="292"/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
+	<parameter name="stationCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT COUNT (*) , 'gondolaCar' as name ,stationcode ,ds.station_name FROM ( SELECT b.stationcode, b.trackcode, b.carno carno, A .carnumber, A .cargoid, A .cz, A .czjm, A .ziz, A .hc, A .bqbz, A .zlbz, A .jybz, A .hsbz, A .fybz, A .fyym, A .sysx, A .zubz, A .jsl, A .czlb, A .yz, A .fxh, A .fullmark, C .hphm, C .fzh, C .fzm, C .fj, C .dzh, C .dzm, C .dj, C .fhrmc, C .shrmc, C .zyxmc, C .pm, C .pmhz, C .wxpdm, C .pldm, C .hwzl, C .yf, C .yjlc, COALESCE (C .pbs, 0) pbs, A .worktrackcode, A .carstatus, C .sfhm, A .stationcid, A .czbj, A .sjddsj, A .ddcc FROM integration.stationcar A INNER JOIN integration.stationcarindex b ON A .stationcid = b.stationcid LEFT JOIN integration.cargo C ON A .cargoid = C .cargoid ) AS gdxc , dw.dim_station ds  WHERE gdxc.stationcode=ds.station_code and  gdxc.stationcode in (
+select station_code from dw.dim_station  ds where ds.unit_code=$P{stationCode}     ) 
+AND gdxc.hwzl is null or gdxc.hwzl = 0 AND gdxc.czjm = 'C'  group by stationcode,ds.station_name
+
+union ALL
+ 
+SELECT COUNT (*) , 'boxCar' as name ,stationcode ,ds.station_name FROM ( SELECT b.stationcode, b.trackcode, b.carno carno, A .carnumber, A .cargoid, A .cz, A .czjm, A .ziz, A .hc, A .bqbz, A .zlbz, A .jybz, A .hsbz, A .fybz, A .fyym, A .sysx, A .zubz, A .jsl, A .czlb, A .yz, A .fxh, A .fullmark, C .hphm, C .fzh, C .fzm, C .fj, C .dzh, C .dzm, C .dj, C .fhrmc, C .shrmc, C .zyxmc, C .pm, C .pmhz, C .wxpdm, C .pldm, C .hwzl, C .yf, C .yjlc, COALESCE (C .pbs, 0) pbs, A .worktrackcode, A .carstatus, C .sfhm, A .stationcid, A .czbj, A .sjddsj, A .ddcc FROM integration.stationcar A INNER JOIN integration.stationcarindex b ON A .stationcid = b.stationcid LEFT JOIN integration.cargo C ON A .cargoid = C .cargoid ) AS gdxc , dw.dim_station ds  WHERE gdxc.stationcode=ds.station_code and  gdxc.stationcode in (
+select station_code from dw.dim_station  ds where ds.unit_code=$P{stationCode} ) 
+AND gdxc.hwzl is null or gdxc.hwzl = 0 AND gdxc.czjm = 'P'  group by stationcode,ds.station_name
+union ALL
+
+SELECT COUNT (*),  'flatCar' as name ,stationcode ,ds.station_name FROM ( SELECT b.stationcode, b.trackcode, b.carno carno, A .carnumber, A .cargoid, A .cz, A .czjm, A .ziz, A .hc, A .bqbz, A .zlbz, A .jybz, A .hsbz, A .fybz, A .fyym, A .sysx, A .zubz, A .jsl, A .czlb, A .yz, A .fxh, A .fullmark, C .hphm, C .fzh, C .fzm, C .fj, C .dzh, C .dzm, C .dj, C .fhrmc, C .shrmc, C .zyxmc, C .pm, C .pmhz, C .wxpdm, C .pldm, C .hwzl, C .yf, C .yjlc, COALESCE (C .pbs, 0) pbs, A .worktrackcode, A .carstatus, C .sfhm, A .stationcid, A .czbj, A .sjddsj, A .ddcc FROM integration.stationcar A INNER JOIN integration.stationcarindex b ON A .stationcid = b.stationcid LEFT JOIN integration.cargo C ON A .cargoid = C .cargoid ) AS gdxc , dw.dim_station ds  WHERE gdxc.stationcode=ds.station_code and  gdxc.stationcode in (
+select station_code from dw.dim_station  ds where ds.unit_code=$P{stationCode} ) 
+AND gdxc.hwzl is null or gdxc.hwzl = 0 AND gdxc.czjm = 'N'  group by stationcode,ds.station_name
+union ALL
+
+SELECT COUNT (*) ,'others' AS name ,stationcode ,ds.station_name FROM ( SELECT b.stationcode, b.trackcode, b.carno carno, A .carnumber, A .cargoid, A .cz, A .czjm, A .ziz, A .hc, A .bqbz, A .zlbz, A .jybz, A .hsbz, A .fybz, A .fyym, A .sysx, A .zubz, A .jsl, A .czlb, A .yz, A .fxh, A .fullmark, C .hphm, C .fzh, C .fzm, C .fj, C .dzh, C .dzm, C .dj, C .fhrmc, C .shrmc, C .zyxmc, C .pm, C .pmhz, C .wxpdm, C .pldm, C .hwzl, C .yf, C .yjlc, COALESCE (C .pbs, 0) pbs, A .worktrackcode, A .carstatus, C .sfhm, A .stationcid, A .czbj, A .sjddsj, A .ddcc FROM integration.stationcar A INNER JOIN integration.stationcarindex b ON A .stationcid = b.stationcid LEFT JOIN integration.cargo C ON A .cargoid = C .cargoid ) AS gdxc , dw.dim_station ds  WHERE gdxc.stationcode=ds.station_code and  gdxc.stationcode in (
+select station_code from dw.dim_station  ds where ds.unit_code=$P{stationCode} ) 
+AND gdxc.hwzl is null or gdxc.hwzl = 0 AND gdxc.czjm NOT IN ('P', 'C', 'N')  group by stationcode,ds.station_name
+union ALL
+
+SELECT  coalesce(sum(zhcs),0) , 'htruck' as name ,fp.station_code, station_name FROM dw.fact_product fp ,dw.dim_station ds WHERE fp.station_code=ds.station_code and  fp.station_code in (select station_code from dw.dim_station  ds where ds.unit_code=$P{stationCode} ) group by fp.station_code, ds.station_name]]>
+	</queryString>
+	<field name="count" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="count"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="stationcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="stationcode"/>
+	</field>
+	<field name="station_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="station_name"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="141" height="30" uuid="dbe21bb4-d5a7-49bc-9e8c-2c4e98d9d945">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0068c93d-ee31-4689-b87b-2c678b9d31a3"/>
+				</reportElement>
+				<text><![CDATA[count]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="0" width="138" height="30" uuid="097fe504-8a36-4ecf-9350-602d6120ca91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5cabbcd5-edc9-487c-89cb-c9593bae1c69"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="138" height="30" uuid="1f1f27a8-a77b-4207-8fc2-a43f32c8ea13">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30219f2b-4ce4-470a-b1ed-ef5098ee6908"/>
+				</reportElement>
+				<text><![CDATA[stationcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="138" height="30" uuid="39a938ea-092d-418f-938d-ee8cf0f1f12b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c86ac0e5-a1e8-4a9e-b875-9e25fa78c4c9"/>
+				</reportElement>
+				<text><![CDATA[station_name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="141" height="30" uuid="08806059-fe49-4a7a-95e4-5e7484015af4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0068c93d-ee31-4689-b87b-2c678b9d31a3"/>
+					<property name="net.sf.jasperreports.export.json.path" value="count"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="138" height="30" uuid="1f68aef8-6591-4891-a59b-843bed544fed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5cabbcd5-edc9-487c-89cb-c9593bae1c69"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="138" height="30" uuid="224e0f79-ea90-4914-a5ef-b07f3680be4a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30219f2b-4ce4-470a-b1ed-ef5098ee6908"/>
+					<property name="net.sf.jasperreports.export.json.path" value="stationcode"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{stationcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="0" width="138" height="30" uuid="b98d1d5b-db83-40bc-b49a-31fa2bbdc076">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c86ac0e5-a1e8-4a9e-b875-9e25fa78c4c9"/>
+					<property name="net.sf.jasperreports.export.json.path" value="station_name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{station_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

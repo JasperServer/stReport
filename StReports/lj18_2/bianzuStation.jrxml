@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bianzuStation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="32f5a8fa-d05a-4eb6-8585-967b3e6be514">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/bianzuStation"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<queryString language="SQL">
+		<![CDATA[select distinct entry008 as jietilieshu 
+     ,entry009 as bianzulieshu
+     ,entry001 as banliliang
+     ,entry003 as youdiaoliang
+     ,round(((entry003/entry001)*100),2) || '%' as youdiaobi
+     ,entry004 as wudiaoliang
+     ,round(((entry004/entry001)*100),2) || '%' as wudiaobi
+     ,entry003 * 106.29 + entry004 * 51.14 as fees
+		, unit AS id
+		, bu.unit_name as station
+from lj18.data_date as dd, basic_unit bu
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'YB11' and rtrim(ltrim(unit))  in('XDH','NDH','WOH','FEH','QAH','NXH','PHH','VDH','HWH') and dd.unit=bu.unit_code]]>
+	</queryString>
+	<field name="jietilieshu" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="jietilieshu"/>
+	</field>
+	<field name="bianzulieshu" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="bianzulieshu"/>
+	</field>
+	<field name="banliliang" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="banliliang"/>
+	</field>
+	<field name="youdiaoliang" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="youdiaoliang"/>
+	</field>
+	<field name="youdiaobi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="youdiaobi"/>
+	</field>
+	<field name="wudiaoliang" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="wudiaoliang"/>
+	</field>
+	<field name="wudiaobi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="wudiaobi"/>
+	</field>
+	<field name="fees" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="fees"/>
+	</field>
+	<field name="id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+	</field>
+	<field name="station" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="station"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="55" height="30" uuid="f35d0b6c-4a93-4de8-9486-9675bc283447">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76d137df-aad6-476a-83d6-cbfbafc2d88f"/>
+				</reportElement>
+				<text><![CDATA[bianzulieshu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="0" width="55" height="30" uuid="7b502728-ccd0-46d4-8980-6c1e4741434d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3f3f3eaa-2596-4884-a5f6-0f81a63776e4"/>
+				</reportElement>
+				<text><![CDATA[banliliang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="55" height="30" uuid="60d3c3d8-e4db-4eb4-a98a-0524bd04e2b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d870ef1-2c33-4451-b2bb-03b76e0081ef"/>
+				</reportElement>
+				<text><![CDATA[youdiaoliang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="0" width="55" height="30" uuid="5ec122ab-51d6-4e31-afcf-cef41ab954a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="22679c4b-dca0-473e-9950-6c086c8ae17e"/>
+				</reportElement>
+				<text><![CDATA[youdiaobi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="55" height="30" uuid="5189fffd-adb8-40b2-ac92-5b87630ce909">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0bce0a52-49eb-4de8-930c-15f3a10483a2"/>
+				</reportElement>
+				<text><![CDATA[wudiaoliang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="0" width="55" height="30" uuid="c18d16b7-8c2e-4e2c-8d8b-0f3ee8259b89">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ba552f5-85ba-4fad-9ff4-995749127989"/>
+				</reportElement>
+				<text><![CDATA[wudiaobi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="55" height="30" uuid="acd90bd4-2552-40c1-a017-8c8c5d81b378">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="113aef4a-e082-4744-b689-959919782fd7"/>
+				</reportElement>
+				<text><![CDATA[fees]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="0" width="55" height="30" uuid="b08eff91-2788-4033-a126-62afb10b70a3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f69af4e8-b5e1-402f-a288-dc53eb33170b"/>
+				</reportElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="0" width="55" height="30" uuid="cfac74e9-c728-42df-a760-8d0ef020128b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b59bdad5-57f9-4148-944a-7a9a258a889d"/>
+				</reportElement>
+				<text><![CDATA[station]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="8c06c382-e7a3-480f-a8a2-469144039d80">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ebeb6b5d-988c-463e-87fc-eed5d4e866e0"/>
+				</reportElement>
+				<text><![CDATA[jietilieshu]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="0" width="55" height="30" uuid="e8864888-d3cf-4ab8-b611-f989629ce2ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76d137df-aad6-476a-83d6-cbfbafc2d88f"/>
+					<property name="net.sf.jasperreports.export.json.path" value="bianzulieshu"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{bianzulieshu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="55" height="30" uuid="95c5b859-3406-489d-ad74-85d4ab6aef70">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3f3f3eaa-2596-4884-a5f6-0f81a63776e4"/>
+					<property name="net.sf.jasperreports.export.json.path" value="banliliang"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{banliliang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="55" height="30" uuid="a8d58172-0826-492d-96ee-e61ba3314c8f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d870ef1-2c33-4451-b2bb-03b76e0081ef"/>
+					<property name="net.sf.jasperreports.export.json.path" value="youdiaoliang"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{youdiaoliang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="0" width="55" height="30" uuid="e3e5351f-da87-4380-8c8a-9e65da315f8c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="22679c4b-dca0-473e-9950-6c086c8ae17e"/>
+					<property name="net.sf.jasperreports.export.json.path" value="youdiaobi"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{youdiaobi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="55" height="30" uuid="45ebff25-c098-4944-884b-f56ef69e9942">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0bce0a52-49eb-4de8-930c-15f3a10483a2"/>
+					<property name="net.sf.jasperreports.export.json.path" value="wudiaoliang"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{wudiaoliang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="0" width="55" height="30" uuid="a9188d8b-b215-4c9e-97a8-8aedd5e1fe37">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ba552f5-85ba-4fad-9ff4-995749127989"/>
+					<property name="net.sf.jasperreports.export.json.path" value="wudiaobi"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{wudiaobi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="55" height="30" uuid="3e5ee264-4b7e-4372-919b-813cec93920d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="113aef4a-e082-4744-b689-959919782fd7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="fees"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fees}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="55" height="30" uuid="91318fe9-2ab1-4561-9f7b-3a431fd11588">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f69af4e8-b5e1-402f-a288-dc53eb33170b"/>
+					<property name="net.sf.jasperreports.export.json.path" value="id"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="55" height="30" uuid="07a4f65b-10cc-4683-a353-8aa179ef9a91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b59bdad5-57f9-4148-944a-7a9a258a889d"/>
+					<property name="net.sf.jasperreports.export.json.path" value="station"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{station}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="100" height="30" uuid="416d31e9-5912-43af-b82c-50a04a7c079a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ebeb6b5d-988c-463e-87fc-eed5d4e866e0"/>
+					<property name="net.sf.jasperreports.export.json.path" value="jietilieshu"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{jietilieshu}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

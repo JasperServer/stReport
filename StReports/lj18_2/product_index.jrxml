@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="product_index" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f87deebc-5caf-4688-82e8-155370ed3076">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/product_index"/>
+	<queryString language="SQL">
+		<![CDATA[select '生产指数' as name , round(((jj/zong)*(jj_current/jj_rj)+(ke/zong)*(ke_current/ke_rj) + (huo/zong)*(huo_current/huo_rj))/10000,3) as value
+from
+(
+select 
+max(case bz when '总收入' then ndys else 0 end) as zong, 
+max(case bz when '客运收入' then ndys else 0 end) as ke, 
+max(case bz when '货运收入' then ndys else 0 end) as huo, 
+max(case bz when '建设基金' then ndys else 0 end) as jj,
+max(case bz when '客运收入' then rjys else 0 end) as ke_rj, 
+max(case bz when '货运收入' then rjys else 0 end) as huo_rj, 
+max(case bz when '建设基金' then rjys else 0 end) as jj_rj,
+avg(entry049) as ke_current,avg(entry052) as huo_current ,avg(entry055) as jj_current
+from  lj18.data_date dd,basic_ndysb bn where  d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'CB2' and unit = 'XLJ' and dd.unit=bn.unit_code
+) as p]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="a3a1b4a6-4ee2-4de2-8330-8aeafd87a416">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc54ffaa-b708-4831-9625-7d4165f1f695"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="0454100a-db80-4d70-8ed6-d5abb2e733a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d2a62ab-4115-4a52-a013-c87e2bf80c6d"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="a2aa358d-4b6f-4983-8d14-91e08ccfd649">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc54ffaa-b708-4831-9625-7d4165f1f695"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="9b9c2bac-28b1-40d4-8e2b-382885249236">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d2a62ab-4115-4a52-a013-c87e2bf80c6d"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divideDate" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="46347d2f-ac4f-4d69-b992-14b896e767e1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divideDate"/>
+	<parameter name="stationCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select DISTINCT entry001 AS takeInTrain
+     ,entry002 AS takeInVehicle
+     ,entry046 AS takeOutTrain
+     ,entry047 AS takeOutVehicle
+from lj18.data_date
+where d18_date =to_char(CURRENT_DATE-2, 'YYYYMMDD')   and report_name = 'YB1' and  rtrim(ltrim(unit))  = $P{stationCode}  -- to_char(CURRENT_DATE-1, 'YYYYMMDD')]]>
+	</queryString>
+	<field name="takeintrain" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="takeintrain"/>
+	</field>
+	<field name="takeinvehicle" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="takeinvehicle"/>
+	</field>
+	<field name="takeouttrain" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="takeouttrain"/>
+	</field>
+	<field name="takeoutvehicle" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="takeoutvehicle"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="141" height="30" uuid="152a37db-93fc-40b1-a0e4-808e29e960c0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cf34043-45f5-4c10-88fb-7a8de7f79a7e"/>
+				</reportElement>
+				<text><![CDATA[takeintrain]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="0" width="138" height="30" uuid="df32b0bc-ec4a-4d4c-86dd-89b48f98a699">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c861f24e-3f59-441c-b501-c2161e8ef320"/>
+				</reportElement>
+				<text><![CDATA[takeinvehicle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="138" height="30" uuid="6e6f160b-7f6d-4974-8b57-fcf5d4ee2a42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae14514b-36d1-4259-b07f-9fdd9b2c8de1"/>
+				</reportElement>
+				<text><![CDATA[takeouttrain]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="138" height="30" uuid="695176f7-14ff-4819-bc66-6f7caf00d8e2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dca6484-eaa5-43d1-89e8-e9061d0a86a5"/>
+				</reportElement>
+				<text><![CDATA[takeoutvehicle]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="141" height="30" uuid="86370a85-331e-4365-b549-d6ecdbfd07bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cf34043-45f5-4c10-88fb-7a8de7f79a7e"/>
+					<property name="net.sf.jasperreports.export.json.path" value="takeintrain"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{takeintrain}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="138" height="30" uuid="181ae4d7-4034-4418-8954-a5921b5b70c1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c861f24e-3f59-441c-b501-c2161e8ef320"/>
+					<property name="net.sf.jasperreports.export.json.path" value="takeinvehicle"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{takeinvehicle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="138" height="30" uuid="19ab9c38-9c21-45fd-8ce2-943319dc60e5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae14514b-36d1-4259-b07f-9fdd9b2c8de1"/>
+					<property name="net.sf.jasperreports.export.json.path" value="takeouttrain"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{takeouttrain}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="0" width="138" height="30" uuid="46bc8832-bd7e-4a83-9711-5cdbbe3dea21">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dca6484-eaa5-43d1-89e8-e9061d0a86a5"/>
+					<property name="net.sf.jasperreports.export.json.path" value="takeoutvehicle"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{takeoutvehicle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

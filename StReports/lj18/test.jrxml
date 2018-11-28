@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="40158eaf-80e2-4971-ac51-c11e01cb8ba7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="449"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="546"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/test"/>
+	<queryString language="SQL">
+		<![CDATA[select * from ext.ext_carjob limit 3]]>
+	</queryString>
+	<field name="carjobid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="carjobid"/>
+	</field>
+	<field name="stationcid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="stationcid"/>
+	</field>
+	<field name="stationcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="stationcode"/>
+	</field>
+	<field name="jobtype" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="jobtype"/>
+	</field>
+	<field name="carnumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="carnumber"/>
+	</field>
+	<field name="cargoid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cargoid"/>
+	</field>
+	<field name="trainid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="trainid"/>
+	</field>
+	<field name="trackcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="trackcode"/>
+	</field>
+	<field name="begintime" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="begintime"/>
+	</field>
+	<field name="endtime" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="endtime"/>
+	</field>
+	<field name="jobuser" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="jobuser"/>
+	</field>
+	<field name="operatetype" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="operatetype"/>
+	</field>
+	<field name="rectime" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="rectime"/>
+	</field>
+	<field name="jobstationcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="jobstationcode"/>
+	</field>
+	<field name="user_ip" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="user_ip"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="001076a4-eaba-4318-aa9c-2f49ebb02e1a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="feb601d4-cb3c-4d48-9441-9cd22355c0cc"/>
+				</reportElement>
+				<text><![CDATA[carjobid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="e32218c7-f5d1-4927-9b3b-560cb75ac5c7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="471db79d-4703-45e3-8ab1-3d99f94a1fac"/>
+				</reportElement>
+				<text><![CDATA[stationcid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="c223eaca-3739-4baf-9bef-301551a0ddb0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1779a4a3-7c96-473d-88e7-87e202feab4a"/>
+				</reportElement>
+				<text><![CDATA[stationcode]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="30" uuid="9ad8affe-40d5-43e9-9751-a5365abbaf28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="feb601d4-cb3c-4d48-9441-9cd22355c0cc"/>
+					<property name="net.sf.jasperreports.export.json.path" value="carjobid"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{carjobid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="30" uuid="0e4d52fc-1c9f-4908-aa64-8b5d08393563">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="471db79d-4703-45e3-8ab1-3d99f94a1fac"/>
+					<property name="net.sf.jasperreports.export.json.path" value="stationcid"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{stationcid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="30" uuid="62266493-54f8-4f86-b067-bd37e69df642">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1779a4a3-7c96-473d-88e7-87e202feab4a"/>
+					<property name="net.sf.jasperreports.export.json.path" value="stationcode"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{stationcode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

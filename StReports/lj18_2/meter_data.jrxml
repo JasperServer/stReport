@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="meter_data" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f7b58d3-84c2-4cef-b6ec-db852d383e20">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/meter_data"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+	MAX (
+		CASE note
+		WHEN '货运收入' THEN
+
+		VALUE
+
+		ELSE
+			0
+		END
+	) AS
+VALUE
+	,
+	ID,
+	MAX (
+		CASE note
+		WHEN '基准' THEN
+
+		VALUE
+
+		ELSE
+			0
+		END
+	) AS base,
+	'货运收入' AS note
+FROM
+	(
+		SELECT
+			entry052 AS
+		VALUE
+			,
+			'freightIncome' AS ID,
+			'货运收入' AS note
+		FROM
+			lj18.data_date
+		WHERE
+			d18_date = to_char(CURRENT_DATE - 2, 'YYYYMMDD')
+		AND report_name = 'CB2'
+		AND unit = 'XLJ'
+		UNION ALL
+			SELECT
+				entry052 * 2 AS base,
+				'freightIncome' AS ID,
+				'基准' AS note
+			FROM
+				lj18.data_date
+			WHERE
+				d18_date = to_char(CURRENT_DATE - 3, 'YYYYMMDD')
+			AND report_name = 'CB2'
+			AND unit = 'XLJ'
+	) AS P
+GROUP BY
+	ID
+UNION ALL
+	SELECT
+		MAX (
+			CASE note
+			WHEN '发送吨数' THEN
+
+			VALUE
+
+			ELSE
+				0
+			END
+		) AS
+	VALUE
+		,
+		ID,
+		MAX (
+			CASE note
+			WHEN '基准' THEN
+
+			VALUE
+
+			ELSE
+				0
+			END
+		) AS base,
+		'发送吨数' AS note
+	FROM
+		(
+			SELECT
+				entry003 AS
+			VALUE
+				,
+				'freightTonnage' AS ID,
+				'发送吨数' AS note
+			FROM
+				lj18.data_date
+			WHERE
+				d18_date = to_char(CURRENT_DATE - 2, 'YYYYMMDD')
+			AND report_name = 'XB2'
+			AND unit = 'XLJ'
+			UNION ALL
+				SELECT
+					entry003 * 2 AS base,
+					'freightTonnage' AS ID,
+					'基准' AS note
+				FROM
+					lj18.data_date
+				WHERE
+					d18_date = to_char(CURRENT_DATE - 3, 'YYYYMMDD')
+				AND report_name = 'XB2'
+				AND unit = 'XLJ'
+		) AS P
+	GROUP BY
+		ID
+	UNION ALL
+		SELECT
+			MAX (
+				CASE note
+				WHEN '生产指数' THEN
+
+				VALUE
+
+				ELSE
+					0
+				END
+			) AS
+		VALUE
+			,
+			ID,
+			MAX (
+				CASE note
+				WHEN '基准' THEN
+
+				VALUE
+
+				ELSE
+					0
+				END
+			) AS base,
+			'生产指数' AS note
+		FROM
+			(
+				SELECT
+					round(
+						(
+							((jj / zong) * (jj_current / jj_rj) + (ke / zong) * (ke_current / ke_rj) + (huo / zong) * (huo_current / huo_rj))/100
+						),
+						3
+					) AS
+				VALUE
+					,
+					'productIndex' AS ID,
+					'生产指数' AS note
+				FROM
+					(
+						SELECT
+							MAX (
+								CASE bz
+								WHEN '总收入' THEN
+									ndys
+								ELSE
+									0
+								END
+							) AS zong,
+							MAX (
+								CASE bz
+								WHEN '客运收入' THEN
+									ndys
+								ELSE
+									0
+								END
+							) AS ke,
+							MAX (
+								CASE bz
+								WHEN '货运收入' THEN
+									ndys
+								ELSE
+									0
+								END
+							) AS huo,
+							MAX (
+								CASE bz
+								WHEN '建设基金' THEN
+									ndys
+								ELSE
+									0
+								END
+							) AS jj,
+							MAX (
+								CASE bz
+								WHEN '客运收入' THEN
+									rjys
+								ELSE
+									0
+								END
+							) AS ke_rj,
+							MAX (
+								CASE bz
+								WHEN '货运收入' THEN
+									rjys
+								ELSE
+									0
+								END
+							) AS huo_rj,
+							MAX (
+								CASE bz
+								WHEN '建设基金' THEN
+									rjys
+								ELSE
+									0
+								END
+							) AS jj_rj,
+							AVG (entry049) AS ke_current,
+							AVG (entry052) AS huo_current,
+							AVG (entry055) AS jj_current
+						FROM
+							lj18.data_date dd,
+							basic_ndysb bn
+						WHERE
+							d18_date = to_char(CURRENT_DATE - 2, 'YYYYMMDD')
+						AND report_name = 'CB2'
+						AND unit = 'XLJ'
+						AND dd.unit = bn.unit_code
+					) AS P
+				UNION ALL
+					SELECT
+						round(
+							(
+								((jj / zong) * (jj_current / jj_rj) + (ke / zong) * (ke_current / ke_rj) + (huo / zong) * (huo_current / huo_rj))/50
+							),
+							3
+						) AS
+					VALUE
+						,
+						'productIndex' AS ID,
+						'基准' AS note
+					FROM
+						(
+							SELECT
+								MAX (
+									CASE bz
+									WHEN '总收入' THEN
+										ndys
+									ELSE
+										0
+									END
+								) AS zong,
+								MAX (
+									CASE bz
+									WHEN '客运收入' THEN
+										ndys
+									ELSE
+										0
+									END
+								) AS ke,
+								MAX (
+									CASE bz
+									WHEN '货运收入' THEN
+										ndys
+									ELSE
+										0
+									END
+								) AS huo,
+								MAX (
+									CASE bz
+									WHEN '建设基金' THEN
+										ndys
+									ELSE
+										0
+									END
+								) AS jj,
+								MAX (
+									CASE bz
+									WHEN '客运收入' THEN
+										rjys
+									ELSE
+										0
+									END
+								) AS ke_rj,
+								MAX (
+									CASE bz
+									WHEN '货运收入' THEN
+										rjys
+									ELSE
+										0
+									END
+								) AS huo_rj,
+								MAX (
+									CASE bz
+									WHEN '建设基金' THEN
+										rjys
+									ELSE
+										0
+									END
+								) AS jj_rj,
+								AVG (entry049) AS ke_current,
+								AVG (entry052) AS huo_current,
+								AVG (entry055) AS jj_current
+							FROM
+								lj18.data_date dd,
+								basic_ndysb bn
+							WHERE
+								d18_date = to_char(CURRENT_DATE - 3, 'YYYYMMDD')
+							AND report_name = 'CB2'
+							AND unit = 'XLJ'
+							AND dd.unit = bn.unit_code
+						) AS p2
+			) AS p4
+		GROUP BY
+			ID
+		UNION ALL
+			SELECT
+				MAX (
+					CASE note
+					WHEN '客运收入' THEN
+
+					VALUE
+
+					ELSE
+						0
+					END
+				) AS
+			VALUE
+				,
+				ID,
+				MAX (
+					CASE note
+					WHEN '基准' THEN
+
+					VALUE
+
+					ELSE
+						0
+					END
+				) AS base,
+				'客运收入' AS note
+			FROM
+				(
+					SELECT
+						entry049 AS
+					VALUE
+						,
+						'passengerIncome' AS ID,
+						'客运收入' AS note
+					FROM
+						lj18.data_date
+					WHERE
+						d18_date = to_char(CURRENT_DATE - 2, 'YYYYMMDD')
+					AND report_name = 'CB2'
+					AND unit = 'XLJ'
+					UNION ALL
+						SELECT
+							entry049 * 2 AS base,
+							'passengerIncome' AS ID,
+							'基准' AS note
+						FROM
+							lj18.data_date
+						WHERE
+							d18_date = to_char(CURRENT_DATE - 3, 'YYYYMMDD')
+						AND report_name = 'CB2'
+						AND unit = 'XLJ'
+				) AS P
+			GROUP BY
+				ID
+			UNION ALL
+				SELECT
+					MAX (
+						CASE note
+						WHEN '客运人数' THEN
+
+						VALUE
+
+						ELSE
+							0
+						END
+					) AS
+				VALUE
+					,
+					ID,
+					MAX (
+						CASE note
+						WHEN '基准' THEN
+
+						VALUE
+
+						ELSE
+							0
+						END
+					) AS base,
+					'客运人数' AS note
+				FROM
+					(
+						SELECT
+							entry002 AS
+						VALUE
+							,
+							'passengerNumber' AS ID,
+							'客运人数' AS note
+						FROM
+							lj18.data_date
+						WHERE
+							d18_date = to_char(CURRENT_DATE - 2, 'YYYYMMDD')
+						AND report_name = 'SBSC'
+						AND unit = 'XLJ'
+						UNION ALL
+							SELECT
+								entry002 * 2 AS base,
+								'passengerNumber' AS ID,
+								'基准' AS note
+							FROM
+								lj18.data_date
+							WHERE
+								d18_date = to_char(CURRENT_DATE - 3, 'YYYYMMDD')
+							AND report_name = 'SBSC'
+							AND unit = 'XLJ'
+					) AS P
+				GROUP BY
+					ID]]>
+	</queryString>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+	</field>
+	<field name="base" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="base"/>
+	</field>
+	<field name="note" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="note"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="bf043db7-3ac4-4998-8ed0-a54957d4a5ce">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="edfd4d11-abf0-46f0-bf6f-a23f0cb41231"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="138b838a-c58e-48b2-867c-a0bf3dbe8616">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71f962b3-66eb-4af3-922b-de2094cdecb7"/>
+				</reportElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="4c5e1258-98e3-481a-8ae4-7e3672ab7b28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="645f6469-8ba0-4369-ab0f-9556f583313e"/>
+				</reportElement>
+				<text><![CDATA[note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="0" width="100" height="30" uuid="cf8aa504-d157-4385-854b-d1c9f7f720b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e201bd7-65e8-4ef9-808f-3c1854e35b03"/>
+				</reportElement>
+				<text><![CDATA[base]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="30" uuid="988de40b-6c92-4509-a395-3e7d72b33f20">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="edfd4d11-abf0-46f0-bf6f-a23f0cb41231"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="30" uuid="49a7a893-f659-40e3-81ef-e66060dcfec9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71f962b3-66eb-4af3-922b-de2094cdecb7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="id"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="30" uuid="3cf6801d-dee0-40c6-a4c6-b6bc36f146fe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="645f6469-8ba0-4369-ab0f-9556f583313e"/>
+					<property name="net.sf.jasperreports.export.json.path" value="note"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="100" height="30" uuid="f4955cb3-850f-453f-940b-94c01a85df33">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e201bd7-65e8-4ef9-808f-3c1854e35b03"/>
+					<property name="net.sf.jasperreports.export.json.path" value="base"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{base}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

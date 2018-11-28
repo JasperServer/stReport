@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bianzuStationDetail" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96e0733f-a30d-4fe7-bc27-3a6a79f7fdd1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/bianzuStationDetail"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="331"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="664"/>
+	<parameter name="stationCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select   cast(sum(extract(day FROM (age(now() , p.sjddsj)))*24+ extract(hour FROM (age(now() , p.sjddsj)))) / count(*) as int) as value, fxmc as name from 
+(select   b.stationcode, b.trackcode, b.carno carno, a.carnumber, a.cargoid, a.cz, a.czjm, a.ziz, a.hc, a.bqbz, a.zlbz, a.jybz, a.hsbz, a.fybz, a.fyym, a.sysx, a.zubz, a.jsl, a.czlb, a.yz, a.fxh as fxh2, a.fullmark, c.hphm, c.fzh, c.fzm, c.fj, c.dzh, c.dzm, c.dj, c.fhrmc, c.shrmc, c.zyxmc, c.pm, c.pmhz, c.wxpdm, c.pldm, c.hwzl, c.yf, c.yjlc, coalesce (c.pbs, 0) pbs, a.worktrackcode, a.carstatus, c.sfhm, a.stationcid, a.czbj, a.sjddsj, a.ddcc from integration.stationcar a inner join integration.stationcarindex b on a.stationcid = b.stationcid left join integration.cargo c on a.cargoid = c.cargoid ) as p
+ ,basic.basic_fxzd bf  where p.fxh2=bf.fxh and stationcode = $P{stationCode}   and p.fxh2  in (select fxh from basic.basic_fxzd where basic.basic_fxzd.zmlm=$P{stationCode} ) group by p.fxh2,bf.fxmc]]>
+	</queryString>
+	<field name="value" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="cc569b57-bb09-452d-b8e8-7285c622ba72">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2cd8ff14-ca04-4028-9502-6efd5b03bc26"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="59e8baaa-2281-4582-a9fe-088edd643569">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b35d79d-f500-4daa-b731-4cd083fbbf39"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="36c521a2-2389-4d86-b357-821abed672d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2cd8ff14-ca04-4028-9502-6efd5b03bc26"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="b5e440f0-c27a-4056-ba6e-0b7ef0bfa36d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b35d79d-f500-4daa-b731-4cd083fbbf39"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

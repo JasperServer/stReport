@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transport_data" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c0bd990-2e72-4048-b27c-e3b0341f9719">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/transport_data"/>
+	<queryString>
+		<![CDATA[select
+			to_char(to_date(d18_date,'YYYYmmdd'),'mm-dd') AS date
+			,round(entry046/10000,0) AS transport
+     , round(entry049/10000,0) AS passenger
+     , round(entry052/10000,0) AS freight
+from lj18.data_date
+where d18_date >= to_char(CURRENT_DATE-9, 'YYYYMMDD') and d18_date <= to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'CB2' and unit = 'XLJ'
+order by date]]>
+	</queryString>
+	<field name="date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+	</field>
+	<field name="transport" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="transport"/>
+	</field>
+	<field name="passenger" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="passenger"/>
+	</field>
+	<field name="freight" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="freight"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="141" height="30" uuid="6704d9a1-43cc-446d-be70-80795272b961">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60f1cb56-9a0e-4d40-b63a-f198ed9f847b"/>
+				</reportElement>
+				<text><![CDATA[date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="0" width="138" height="30" uuid="a2286205-f735-43c1-a707-bd7248bdb4da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db7dc89c-cd89-4f91-aa52-0174b0bd0e77"/>
+				</reportElement>
+				<text><![CDATA[transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="138" height="30" uuid="b98f6e2f-c1d6-4992-ba97-7d811b1bed3c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01eaad50-9a65-4148-b8b4-0f104e88975b"/>
+				</reportElement>
+				<text><![CDATA[passenger]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="138" height="30" uuid="ab736cff-d053-4e0c-9c9d-356bde04e9b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="be88a031-a10f-4535-b360-6bd5255c3088"/>
+				</reportElement>
+				<text><![CDATA[freight]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="141" height="30" uuid="185b2733-9fdb-4d13-b71e-0c1722b97c22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60f1cb56-9a0e-4d40-b63a-f198ed9f847b"/>
+					<property name="net.sf.jasperreports.export.json.path" value="date"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="138" height="30" uuid="74c643b0-55c2-4f34-ab9f-23201dd9ea39">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db7dc89c-cd89-4f91-aa52-0174b0bd0e77"/>
+					<property name="net.sf.jasperreports.export.json.path" value="transport"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{transport}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="138" height="30" uuid="fdfad119-bd5a-4529-955b-1c78c90e43de">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01eaad50-9a65-4148-b8b4-0f104e88975b"/>
+					<property name="net.sf.jasperreports.export.json.path" value="passenger"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{passenger}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="0" width="138" height="30" uuid="62868205-5bc5-49a5-a9b7-0cfb2c62fdbd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="be88a031-a10f-4535-b360-6bd5255c3088"/>
+					<property name="net.sf.jasperreports.export.json.path" value="freight"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{freight}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

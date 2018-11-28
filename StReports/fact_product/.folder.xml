@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder exportedWithPermissions="true">
+    <parent>/reports/st_db</parent>
+    <name>fact_product</name>
+    <label>fact_product</label>
+    <description></description>
+    <creationDate>2018-11-16T16:29:37.593+08:00</creationDate>
+    <updateDate>2018-11-16T16:29:37.593+08:00</updateDate>
+    <resource>bianzuStationDetail</resource>
+    <resource>DateKey</resource>
+    <resource>divide_bsjfc</resource>
+    <resource>divide_bsjfc_total</resource>
+    <resource>divide_gzl</resource>
+    <resource>divide_hcsyf</resource>
+    <resource>divide_train</resource>
+    <resource>divide_xcs</resource>
+    <resource>divide_xcs_title</resource>
+    <resource>divide_zcs</resource>
+    <resource>divide_zcs_title</resource>
+    <resource>divideCarDetail</resource>
+    <resource>divideCarDetail1</resource>
+    <resource>divideCarDetail2</resource>
+    <resource>divideDate</resource>
+    <resource>freightCentDownDate</resource>
+    <resource>freightCentDownInfoDate</resource>
+    <resource>freightCenterDate</resource>
+    <resource>goodscat</resource>
+    <resource>load_car</resource>
+    <resource>map_data</resource>
+    <resource>sectionDate</resource>
+    <resource>sectionList</resource>
+    <resource>stationData</resource>
+    <resource>stationYunDate</resource>
+    <resource>unload_car</resource>
+    <resource>UseCarOwnership</resource>
+    <resource>UseCarOwnershipTotal</resource>
+</folder>

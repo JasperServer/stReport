@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="passenger_sent" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="02d1ab07-c678-4028-bd39-6d968cd73b7f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="297"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="698"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/passenger_sent"/>
+	<queryString language="SQL">
+		<![CDATA[select distinct '合肥' as name , entry002 as value
+from lj18.data_date where 
+report_name = 'SBSC' and unit='HFZ' and d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD')
+UNION ALL 
+select   distinct '南京' as name , entry002 as value
+from lj18.data_date where 
+report_name = 'SBSC' and unit='XNJZ' and d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD')
+UNION ALL 
+select  distinct '杭州' as name , entry002 as value
+from lj18.data_date where 
+report_name = 'SBSC' and unit='HZZ' and d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD')
+UNION ALL 
+select  distinct '上海' as name , entry002 as value
+from lj18.data_date where 
+report_name = 'SBSC' and unit='SHZ' and d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD')
+UNION ALL 
+select  distinct '其他' as name ,sum(entry002) as value
+from lj18.data_date where 
+report_name = 'SBSC' and unit not in('HFZ','SHZ','HZZ','XNJZ','XLJ') and d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD')]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="eeef0fab-00e4-4ae4-83d5-daa899106628">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7d9f7a75-ac6c-4179-a14a-e746138e4420"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="38b75a73-d419-4bd2-bd04-bb4786286f0c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e67c0b01-f2f7-4207-9189-346043d63655"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="adfad072-1f4e-4383-b226-64a7c5de63f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7d9f7a75-ac6c-4179-a14a-e746138e4420"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="5173505b-f592-44ae-8ecb-c4054e361d48">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e67c0b01-f2f7-4207-9189-346043d63655"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

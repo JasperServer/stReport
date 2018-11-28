@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divide_zcs_title" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37a271ab-6c62-4f02-8e11-a0c3289c2f09">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divide_zcs_title"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/divide_zcs_title_files/main_jrxml"/>
+	<queryString>
+		<![CDATA[select sum(zcs) as zcs
+      ,sum(fs) as fs
+from dw.fact_product df
+    ,dw.dim_station ds
+where df.station_code = ds.station_code
+  and ds.unit_type = 'HYZX'
+  and df.datekey = case when date_part('hour', now())<18 then to_char(current_date,'YYYYMMDD') else to_char(current_date +1,'YYYYMMDD') end;]]>
+	</queryString>
+	<field name="zcs" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="zcs"/>
+	</field>
+	<field name="fs" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="fs"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="4d91efbb-1d90-4b50-88f8-3ad40744908c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69450d50-fbce-44c8-a335-e93300f4e61d"/>
+				</reportElement>
+				<text><![CDATA[zcs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="0" width="100" height="30" uuid="1dd3199a-f14e-4476-8ba7-543367634f96">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="782909ae-1fc3-4a90-a2cf-caa892b77056"/>
+				</reportElement>
+				<text><![CDATA[fs]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="b8e0cf32-21e9-4663-9862-3f0dcc6d27cb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69450d50-fbce-44c8-a335-e93300f4e61d"/>
+					<property name="net.sf.jasperreports.export.json.path" value="zcs"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{zcs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="0" width="100" height="30" uuid="13070db0-0104-4c41-8c4a-0f0c6951ee6f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="782909ae-1fc3-4a90-a2cf-caa892b77056"/>
+					<property name="net.sf.jasperreports.export.json.path" value="fs"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fs}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

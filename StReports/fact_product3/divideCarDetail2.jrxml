@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divideCarDetail2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03e2234c-337c-46e0-b1c5-5f0452857b30">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divideCarDetail2"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.129.143"/>
+	<parameter name="CarNum" class="java.lang.String"/>
+	<parameter name="getStnCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select t.zaiz  as load
+      ,t.pm as goods
+	  ,t.fzm as goStation
+	  ,t.fhr as consignee
+	  ,t.dzm as arriveStation
+	  ,t.jsl as note
+	  ,t.hph as waybill
+from (select ml.zmlm,ml.yxcc,ml.dfrq,ml.dfb,zw.ch,zw.zaiz,zw.pm,zw.fhr,zw.fzm,zw.dzm,zw.jsl,zw.hph
+      from integration.qbml ml, integration.qbzw zw
+      where ml.qbid = zw.qbid) t, 
+	  bcdf.station_car sc,
+	  bcdf.station_train st
+where sc.car_no = t.ch 
+  and st.stn_code =t.zmlm 
+  and sc.rpt_name = st.rpt_name 
+  and st.stn_code = $P{getStnCode} 
+  and st.train_nbr =$P{CarNum}
+  and t.dfrq in
+     (select max(t2.dfrq)
+      from (select ml.dfrq,zw.ch,ml.zmlm,ml.dfb from integration.qbml ml, integration.qbzw zw where ml.qbid = zw.qbid) t2, 
+	        bcdf.station_car sc, 
+			bcdf.station_train st
+      where sc.car_no = t2.ch 
+	    and st.stn_code =t2.zmlm 
+		and sc.rpt_name = st.rpt_name 
+		and st.train_nbr =$P{CarNum}
+        and st.stn_code =   $P{getStnCode} 
+		and t2.dfb = 'D')
+  and t.dfb = 'D'
+  and sc.car_no in
+     (select stc.car_no
+	  from bcdf.station_car stc
+	      ,bcdf.station_train stt
+	  where stc.rpt_name = stt.rpt_name
+	    and st.train_nbr =  $P{CarNum}
+	    and st.stn_code =   $P{getStnCode} 
+	  order by stc.car_position
+	 );]]>
+	</queryString>
+	<field name="load" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="load"/>
+	</field>
+	<field name="goods" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="goods"/>
+	</field>
+	<field name="gostation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gostation"/>
+	</field>
+	<field name="consignee" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="consignee"/>
+	</field>
+	<field name="arrivestation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="arrivestation"/>
+	</field>
+	<field name="note" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="note"/>
+	</field>
+	<field name="waybill" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="waybill"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="78" y="0" width="100" height="30" uuid="d1b8d020-05ef-45b3-a5f4-43f886244153">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc58f029-7375-4553-bca0-3f96a8b2e0db"/>
+				</reportElement>
+				<text><![CDATA[load]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="0" width="100" height="30" uuid="0fcec763-0082-4202-b9ad-863e96c2bbf6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f98bc808-c27c-4662-8c9c-d628d8f8966c"/>
+				</reportElement>
+				<text><![CDATA[goods]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="0" width="100" height="30" uuid="0e40f5ec-57ff-417d-aa00-11878921a0ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="507c1262-7454-4bda-a9a5-b18fff22c8b2"/>
+				</reportElement>
+				<text><![CDATA[gostation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="0" width="100" height="30" uuid="d015c477-453b-4dec-ae72-a0169d200516">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ca7bc1e-57a4-4751-832e-a5d801cea757"/>
+				</reportElement>
+				<text><![CDATA[consignee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="0" width="100" height="30" uuid="9895c775-b0a6-41d0-9ccc-72a54fcc3a9b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc2c7500-3fe9-42c5-b983-e8718b5c04c5"/>
+				</reportElement>
+				<text><![CDATA[arrivestation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="100" height="30" uuid="2f53d2cc-d802-4d2e-8273-a3367afa7549">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="03865039-f6ef-426e-b5f4-cd240d5457bf"/>
+				</reportElement>
+				<text><![CDATA[note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="100" height="30" uuid="77f32417-35c3-429b-b362-913e768037bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9605d313-392e-482e-9d5d-3e4bdde0dcd4"/>
+				</reportElement>
+				<text><![CDATA[waybill]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="137" splitType="Stretch">
+			<textField>
+				<reportElement x="78" y="50" width="100" height="30" uuid="210798cc-3e54-48af-a6fe-fbbfd5026c91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc58f029-7375-4553-bca0-3f96a8b2e0db"/>
+					<property name="net.sf.jasperreports.export.json.path" value="load"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{load}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="50" width="100" height="30" uuid="80be4cfb-f09a-47b0-a501-3a8591e129fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f98bc808-c27c-4662-8c9c-d628d8f8966c"/>
+					<property name="net.sf.jasperreports.export.json.path" value="goods"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{goods}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="58" width="100" height="30" uuid="6853794e-3c47-44e9-9485-ce1ce8ae0273">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="507c1262-7454-4bda-a9a5-b18fff22c8b2"/>
+					<property name="net.sf.jasperreports.export.json.path" value="gostation"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{gostation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="102" width="100" height="30" uuid="0d8b3f8e-62d6-4bff-802c-b4fe989d58f2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ca7bc1e-57a4-4751-832e-a5d801cea757"/>
+					<property name="net.sf.jasperreports.export.json.path" value="consignee"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{consignee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="288" y="106" width="100" height="30" uuid="4475e9c1-fcdf-4668-b3da-4bf9d12d1850">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc2c7500-3fe9-42c5-b983-e8718b5c04c5"/>
+					<property name="net.sf.jasperreports.export.json.path" value="arrivestation"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{arrivestation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="107" width="100" height="30" uuid="5b14d44e-fae7-422a-b414-3632a3075ca1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="03865039-f6ef-426e-b5f4-cd240d5457bf"/>
+					<property name="net.sf.jasperreports.export.json.path" value="note"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="24" width="100" height="30" uuid="1d2a3c54-d1aa-4bad-aa20-11ac6df784d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9605d313-392e-482e-9d5d-3e4bdde0dcd4"/>
+					<property name="net.sf.jasperreports.export.json.path" value="waybill"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{waybill}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

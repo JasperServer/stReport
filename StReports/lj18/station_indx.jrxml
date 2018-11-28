@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="station_indx" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="099ccbdc-fff3-41ae-93bf-a517ad1c05c9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/station_indx"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/lj18/station_indx_files/main_jrxml"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+max(case type when 'YB5' then entry014 else 0 end) as usingCarCount,
+max(case type when 'YB5' then entry015 else 0 end) as workCount,
+max(case type when 'YB5' then entry023 else 0 end) as chargingCar,
+max(case type when 'YB5' then vanBilling else 0 end) as vanBilling,
+max(case type when 'XB1' then entry001 else 0 end) as loadingQuantity,
+max(case type when 'XB1' then entry025 else 0 end) as unloadingQuantity
+from(
+select distinct entry014
+     ,entry015
+     ,entry023
+     ,entry023*136.8 as vanBilling
+		,'YB5' as type
+		,entry001
+     ,entry025
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-1, 'YYYYMMDD') and report_name = 'YB5' and unit = 'XLJ'
+union all
+select  distinct entry014
+     ,entry015
+     ,entry023
+     ,entry023*136.8 as vanBilling
+			,'XB1' as type
+			,entry001
+     ,entry025
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-1, 'YYYYMMDD') and report_name = 'XB1' and unit = 'XLJ'
+) as p]]>
+	</queryString>
+	<field name="usingcarcount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="usingcarcount"/>
+	</field>
+	<field name="workcount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="workcount"/>
+	</field>
+	<field name="chargingcar" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="chargingcar"/>
+	</field>
+	<field name="vanbilling" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="vanbilling"/>
+	</field>
+	<field name="loadingquantity" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="loadingquantity"/>
+	</field>
+	<field name="unloadingquantity" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="unloadingquantity"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="30" uuid="49ec4fc5-1a67-4be1-808e-28fe6dffbffb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7998b493-4a25-4752-82df-59abbf78166c"/>
+				</reportElement>
+				<text><![CDATA[usingcarcount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="92" height="30" uuid="011b995f-2795-4fe7-9769-e138a530701f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f235e7a0-4208-405d-97c9-60f29aaf10ac"/>
+				</reportElement>
+				<text><![CDATA[workcount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="92" height="30" uuid="86d79941-d0c6-44cf-8990-c010f701f804">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d0ad00f-61c9-4700-91fe-f006856bdbad"/>
+				</reportElement>
+				<text><![CDATA[chargingcar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="92" height="30" uuid="d3805a54-d1dd-45c3-9489-647557651afd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="799503bc-5250-452e-9d72-b0f809fdd9ba"/>
+				</reportElement>
+				<text><![CDATA[vanbilling]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="92" height="30" uuid="331f2af0-8377-4ead-a3e1-cade219f76f3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34b29ca3-1bad-4f0a-8578-86b6ba09dfbe"/>
+				</reportElement>
+				<text><![CDATA[loadingquantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="92" height="30" uuid="ca1a9045-60cb-4fdf-a7ed-10bd301d8fec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e7082ab-a3ca-4b2d-b9da-83e90104eb08"/>
+				</reportElement>
+				<text><![CDATA[unloadingquantity]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="95" height="30" uuid="4a5a5781-a216-4b2a-a937-cf6f953e9020">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7998b493-4a25-4752-82df-59abbf78166c"/>
+					<property name="net.sf.jasperreports.export.json.path" value="usingcarcount"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{usingcarcount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="92" height="30" uuid="be99c4aa-dc7e-474d-a480-61d96eb50a81">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f235e7a0-4208-405d-97c9-60f29aaf10ac"/>
+					<property name="net.sf.jasperreports.export.json.path" value="workcount"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{workcount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="92" height="30" uuid="2dccb721-565e-4594-beef-0a9ee3486403">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d0ad00f-61c9-4700-91fe-f006856bdbad"/>
+					<property name="net.sf.jasperreports.export.json.path" value="chargingcar"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{chargingcar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="92" height="30" uuid="00173f6b-eb55-4e4e-a2f5-01c17cc55bde">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="799503bc-5250-452e-9d72-b0f809fdd9ba"/>
+					<property name="net.sf.jasperreports.export.json.path" value="vanbilling"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vanbilling}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="92" height="30" uuid="16a936da-d713-4235-8745-09cc2feeaa4a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34b29ca3-1bad-4f0a-8578-86b6ba09dfbe"/>
+					<property name="net.sf.jasperreports.export.json.path" value="loadingquantity"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{loadingquantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="30" uuid="7a545f39-ec52-45ed-94c9-b217923c9b8f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e7082ab-a3ca-4b2d-b9da-83e90104eb08"/>
+					<property name="net.sf.jasperreports.export.json.path" value="unloadingquantity"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{unloadingquantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divide_bsjfc" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8beeb825-6ccb-462f-b4db-8dd58e0b7c56">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divide_bsjfc"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/divide_bsjfc_files/main_jrxml"/>
+	<parameter name="stationCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select stationcode --车站
+,trackcode  --股道
+     ,carno      --顺位
+     ,cz         --车种
+     ,carnumber  --车号
+     ,dzm         --到站
+     ,fzm         --发站
+     ,pmhz       --品名
+,hwzl        --载重
+,shrmc        --收货人
+     ,fhrmc       --发货人
+     ,jsl           --记事栏
+     ,hphm        --运单号
+from 
+(select   b.stationcode,
+            b.trackcode,
+            b.carno carno,
+            a.carnumber,
+            a.cargoid,
+            a.cz,
+            a.czjm,
+            a.ziz,
+            a.hc,
+            a.bqbz,
+            a.zlbz,
+            a.jybz,
+            a.hsbz,
+            a.fybz,
+            a.fyym,
+            a.sysx,
+            a.zubz,
+            a.jsl,
+            a.czlb,
+            a.yz,
+            a.fxh,
+            a.fullmark,
+            c.hphm,
+            c.fzh,
+            c.fzm,
+            c.fj,
+            c.dzh,
+            c.dzm,
+            c.dj,
+            c.fhrmc,
+            c.shrmc,
+            c.zyxmc,
+            c.pm,
+            c.pmhz,
+            c.wxpdm,
+            c.pldm,
+            c.hwzl,
+            c.yf,
+            c.yjlc,
+            coalesce (c.pbs, 0) pbs,
+            a.worktrackcode,
+            a.carstatus,
+            c.sfhm,
+            a.stationcid,
+            a.czbj,
+            a.sjddsj,
+            a.ddcc
+      from integration.stationcar a 
+	           inner join integration.stationcarindex b 
+	           on a.stationcid = b.stationcid 
+	           left join integration.cargo c
+	           on a.cargoid = c.cargoid) as gdxc
+where stationcode = $P{stationCode}  --'IHH'
+order by trackcode,carno;]]>
+	</queryString>
+	<field name="stationcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="stationcode"/>
+	</field>
+	<field name="trackcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="trackcode"/>
+	</field>
+	<field name="carno" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="carno"/>
+	</field>
+	<field name="cz" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cz"/>
+	</field>
+	<field name="carnumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="carnumber"/>
+	</field>
+	<field name="dzm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="dzm"/>
+	</field>
+	<field name="fzm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fzm"/>
+	</field>
+	<field name="pmhz" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pmhz"/>
+	</field>
+	<field name="hwzl" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="hwzl"/>
+	</field>
+	<field name="shrmc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="shrmc"/>
+	</field>
+	<field name="fhrmc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fhrmc"/>
+	</field>
+	<field name="jsl" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="jsl"/>
+	</field>
+	<field name="hphm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="hphm"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="21f3294e-2a25-428a-af48-90c479312f1f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="806ac583-b16b-48b7-bfba-d03c5920f901"/>
+				</reportElement>
+				<text><![CDATA[stationcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="100" height="30" uuid="8ca48927-df17-4cbe-bb96-63d52e7778ed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5b6648f-69cb-4549-b96a-67770ad0a54d"/>
+				</reportElement>
+				<text><![CDATA[trackcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="1" width="100" height="30" uuid="aa353c61-27b1-4d81-936a-e7fab9a452c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d18689c6-06e2-4aaa-a1ea-360dc13598db"/>
+				</reportElement>
+				<text><![CDATA[carno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="100" height="30" uuid="63d4f61a-054c-49ae-bf2e-8cc11f85a5ce">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c12882b8-1c19-4b8c-b2ec-848542f438c7"/>
+				</reportElement>
+				<text><![CDATA[cz]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="2" width="100" height="30" uuid="54fb7c99-4634-4b41-84b4-630142fe0c1f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="739d37cb-7a27-4697-9dbc-f3389363078b"/>
+				</reportElement>
+				<text><![CDATA[carnumber]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="200" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="66f204d8-fb50-46bf-a732-eb44e2f822fe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="806ac583-b16b-48b7-bfba-d03c5920f901"/>
+					<property name="net.sf.jasperreports.export.json.path" value="stationcode"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{stationcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="100" height="30" uuid="7d237afc-6a4c-468d-b3a2-91a0b15ab312">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5b6648f-69cb-4549-b96a-67770ad0a54d"/>
+					<property name="net.sf.jasperreports.export.json.path" value="trackcode"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{trackcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="100" height="30" uuid="260efaff-b3a5-4f59-92a7-bc045cc3a22b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d18689c6-06e2-4aaa-a1ea-360dc13598db"/>
+					<property name="net.sf.jasperreports.export.json.path" value="carno"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{carno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="a5db383c-eb1e-4f86-bdcc-772c8b3fbc81">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c12882b8-1c19-4b8c-b2ec-848542f438c7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="cz"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cz}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="100" height="30" uuid="22f90afd-ae26-43af-9ee9-4368a17629f6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="739d37cb-7a27-4697-9dbc-f3389363078b"/>
+					<property name="net.sf.jasperreports.export.json.path" value="carnumber"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{carnumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="95" width="100" height="30" uuid="48ce2d91-1105-4ac4-997f-b49554843718">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de0a632a-6cbb-4de8-8d6f-60583c8e00f7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="dzm"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dzm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="49" width="100" height="30" uuid="33f3fe37-1b61-497c-8c4b-d9a8f195967a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de0a632a-6cbb-4de8-8d6f-60583c8e00f7"/>
+				</reportElement>
+				<text><![CDATA[dzm]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="95" width="100" height="30" uuid="0e9e6e65-683e-44c7-a03d-bb27fc605045">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72e38356-3896-4e48-a43c-e72a3435915f"/>
+					<property name="net.sf.jasperreports.export.json.path" value="fzm"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fzm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="110" y="49" width="100" height="30" uuid="d3d18d95-f91c-441a-b44d-f8e244c3efcf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72e38356-3896-4e48-a43c-e72a3435915f"/>
+				</reportElement>
+				<text><![CDATA[fzm]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="95" width="100" height="30" uuid="c3ff8af7-e23a-49b4-b3d6-a4bf4658c41e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74bcde23-0a33-47bd-8ff9-d1960d6f812e"/>
+					<property name="net.sf.jasperreports.export.json.path" value="pmhz"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{pmhz}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="220" y="49" width="100" height="30" uuid="2ea5fe9d-a8aa-476d-9b65-7c76e4225147">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74bcde23-0a33-47bd-8ff9-d1960d6f812e"/>
+				</reportElement>
+				<text><![CDATA[pmhz]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="90" width="100" height="30" uuid="eb55bfde-5c14-406e-b554-35f3ed9b2a0b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3703a69e-49d8-4bd5-86b3-223df7269f26"/>
+					<property name="net.sf.jasperreports.export.json.path" value="hwzl"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{hwzl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="49" width="100" height="30" uuid="69331ffc-6e67-4efe-9590-0e95e3d2fee9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3703a69e-49d8-4bd5-86b3-223df7269f26"/>
+				</reportElement>
+				<text><![CDATA[hwzl]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="95" width="100" height="30" uuid="5eafca3d-9b85-4554-af48-c072202208f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e70916e4-727f-481c-881b-630f96a660a7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="shrmc"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{shrmc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="460" y="49" width="100" height="30" uuid="c08005b6-74e8-4bff-b05d-4a22de9ecc20">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e70916e4-727f-481c-881b-630f96a660a7"/>
+				</reportElement>
+				<text><![CDATA[shrmc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="130" width="100" height="30" uuid="8efb2772-a61f-4a91-a54e-929066b3b365">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d22b717-0a12-4ba9-9132-4cc9cbbcbab1"/>
+				</reportElement>
+				<text><![CDATA[hphm]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="290" y="170" width="100" height="30" uuid="a366cbc3-7a75-460d-9568-6d058a29675c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d22b717-0a12-4ba9-9132-4cc9cbbcbab1"/>
+					<property name="net.sf.jasperreports.export.json.path" value="hphm"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{hphm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="130" width="100" height="30" uuid="dc3eca17-465c-4b64-a6bd-de3477b570bf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9094b095-5a6d-4e2b-8cc0-29a4c97dd8f6"/>
+				</reportElement>
+				<text><![CDATA[fhrmc]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="165" width="100" height="30" uuid="87981f61-af86-40c9-9334-d7787b3f040c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9094b095-5a6d-4e2b-8cc0-29a4c97dd8f6"/>
+					<property name="net.sf.jasperreports.export.json.path" value="fhrmc"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fhrmc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="120" y="130" width="100" height="30" uuid="8fdb6ef2-2742-4570-903a-b0eaf24cc9a9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f5373c2-206e-4937-b826-64a451a9d41a"/>
+				</reportElement>
+				<text><![CDATA[jsl]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="165" width="100" height="30" uuid="ae9a14c9-40f0-4ac8-9762-b93b885f1ecb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f5373c2-206e-4937-b826-64a451a9d41a"/>
+					<property name="net.sf.jasperreports.export.json.path" value="jsl"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{jsl}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

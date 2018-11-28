@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="goodscat" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="371b6069-2986-471f-8b1b-36827dac1aac">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/goodscat"/>
+	<property name="net.sf.jasperreports.export.json.escape.members" value="true"/>
+	<queryString language="SQL">
+		<![CDATA[select '煤' as name, entry005 as value
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'石油' as name ,entry007 as value
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'焦炭' as name ,entry009  as value
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'金属' as name ,entry011  as value
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'钢铁' as name ,entry013 as value 
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'水泥' as name,entry021 as value 
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'木材' as name,entry023 as value 
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'粮食' as name,entry025 as value 
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'化肥' as name,entry029 as value 
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ'
+union ALL
+select 
+'化工' as name,entry033 as value 
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'XB2' and unit = 'XLJ']]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="8c6a4d04-9dd1-4d8d-922f-9ff5fce8dbf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06c9effd-0483-4a1d-9296-5c3af27ad204"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="5a874355-d310-4bb2-b25d-5ba4663f3c9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="860090a0-aacc-46f4-bc23-952e8480fd26"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="d971ca66-1195-4085-9cc6-252f14904636">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06c9effd-0483-4a1d-9296-5c3af27ad204"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="201899c2-4c37-420b-a39f-2ac570c015f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="860090a0-aacc-46f4-bc23-952e8480fd26"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder exportedWithPermissions="true">
+    <parent>/reports/st_db</parent>
+    <name>lj18</name>
+    <label>lj18</label>
+    <description></description>
+    <creationDate>2018-11-07T15:51:51.554+08:00</creationDate>
+    <updateDate>2018-11-07T15:51:51.554+08:00</updateDate>
+    <resource>bianzuStation</resource>
+    <resource>data_count</resource>
+    <resource>divideinfo</resource>
+    <resource>freight_data</resource>
+    <resource>global_income</resource>
+    <resource>goodscat</resource>
+    <resource>load_data</resource>
+    <resource>load_unload</resource>
+    <resource>mainStationKeep</resource>
+    <resource>meter_data</resource>
+    <resource>nowCar</resource>
+    <resource>passenger_data</resource>
+    <resource>passenger_sent</resource>
+    <resource>product_index</resource>
+    <resource>sent</resource>
+    <resource>station_indx</resource>
+    <resource>super_owe</resource>
+    <resource>transport_data</resource>
+    <resource>truckTurnoverTime</resource>
+    <resource>unload_data</resource>
+    <resource>weight_data</resource>
+</folder>

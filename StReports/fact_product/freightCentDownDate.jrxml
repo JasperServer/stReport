@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="freightCentDownDate" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76b7567f-65b8-4352-8b1f-9d2c4682bf25">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="172.16.130.132:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/freightCentDownDate"/>
+	<parameter name="stationUnitCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+			ds.station_name as name
+			,ds.station_code as code
+			,fp.jhzc  as planLoading    --计划装车
+     , fp.zcs  as realLoading    --装车数
+     , fp.xcs   as unLoadingNum   --卸车数
+     , fp.fs    as sendingNum   --发送（吨）
+     , fp.dd    as arriveTol  --到达（吨）
+from  dw.fact_product fp
+,dw.dim_date dd
+,dw.dim_station ds
+where fp.datekey = dd.datekey
+and fp.station_code = ds.station_code
+and ds.unit_code = $P{stationUnitCode}  and fp.datekey=to_char(CURRENT_DATE-1, 'YYYYMMDD') -- ‘所选货运中心下的每一个车站（当前选中的车站电报码）’; 徐州货运中心]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="code"/>
+	</field>
+	<field name="planloading" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="planloading"/>
+	</field>
+	<field name="realloading" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="realloading"/>
+	</field>
+	<field name="unloadingnum" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="unloadingnum"/>
+	</field>
+	<field name="sendingnum" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="sendingnum"/>
+	</field>
+	<field name="arrivetol" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="arrivetol"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="81" height="30" uuid="abc17d98-f003-4336-a45d-c6f86e46177b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13a66e9b-d4db-41df-8f43-958e17e3eb44"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="0" width="79" height="30" uuid="29969929-6a72-444c-b8b7-3b53ee18412b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f79604ff-2754-42a1-85ce-a25c8e2da4ff"/>
+				</reportElement>
+				<text><![CDATA[code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="79" height="30" uuid="38e0a250-2fb6-45cb-8be1-1af92fbf7144">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2001255-a3a9-475a-826c-ea04c17624aa"/>
+				</reportElement>
+				<text><![CDATA[planloading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="0" width="79" height="30" uuid="eea8518f-9e7e-4f96-823e-818c664f1911">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c7ea786-4b32-4e50-b332-53eba386441c"/>
+				</reportElement>
+				<text><![CDATA[realloading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="0" width="79" height="30" uuid="6c4edc55-abb3-4331-aa28-153821333321">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54269093-2267-4abd-88d6-02d43b240ab7"/>
+				</reportElement>
+				<text><![CDATA[unloadingnum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="0" width="79" height="30" uuid="31cabcde-7ab6-46f8-bf49-e489229de1dc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a05641f-fa01-442f-b4d8-b527906a1798"/>
+				</reportElement>
+				<text><![CDATA[sendingnum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="476" y="0" width="79" height="30" uuid="4765a9cb-3f7e-444d-a6bf-88018f7b0bb2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="953a96bc-92bf-4f4a-9052-25da1bcbd7d8"/>
+				</reportElement>
+				<text><![CDATA[arrivetol]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="81" height="30" uuid="94bf7db7-e2da-4428-aafc-3bdd2f064cbc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13a66e9b-d4db-41df-8f43-958e17e3eb44"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="0" width="79" height="30" uuid="f49da2d2-d4d9-4126-b317-f75a400ffb8e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f79604ff-2754-42a1-85ce-a25c8e2da4ff"/>
+					<property name="net.sf.jasperreports.export.json.path" value="code"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="79" height="30" uuid="f02b5c5f-f1ae-4b6d-9969-a413f096d3e9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2001255-a3a9-475a-826c-ea04c17624aa"/>
+					<property name="net.sf.jasperreports.export.json.path" value="planloading"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{planloading}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="79" height="30" uuid="87f5f885-5632-4497-baf8-67dfb60c31f0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c7ea786-4b32-4e50-b332-53eba386441c"/>
+					<property name="net.sf.jasperreports.export.json.path" value="realloading"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{realloading}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="0" width="79" height="30" uuid="7583e383-6d0f-4872-99f1-cc740f948093">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54269093-2267-4abd-88d6-02d43b240ab7"/>
+					<property name="net.sf.jasperreports.export.json.path" value="unloadingnum"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{unloadingnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="0" width="79" height="30" uuid="5cdcabdf-a1aa-4a5e-bc79-75d9d06e1a5d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a05641f-fa01-442f-b4d8-b527906a1798"/>
+					<property name="net.sf.jasperreports.export.json.path" value="sendingnum"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{sendingnum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="0" width="79" height="30" uuid="267bfc50-c3d6-4bb5-9a04-01065d30d595">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="953a96bc-92bf-4f4a-9052-25da1bcbd7d8"/>
+					<property name="net.sf.jasperreports.export.json.path" value="arrivetol"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{arrivetol}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

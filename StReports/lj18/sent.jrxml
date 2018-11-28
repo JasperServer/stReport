@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sent" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="44c486be-3812-469b-b3d2-2d20ae55e34a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/sent"/>
+	<queryString language="SQL">
+		<![CDATA[select '旅客发送量（万人）' as name ,round(entry002/10000,0) as value
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'SBSC' and unit = 'XLJ'
+UNION ALL
+select  '货物发送量（万吨）' as name, round(entry003/10000,0) as value
+from lj18.data_date
+where d18_date = to_char(CURRENT_DATE-2, 'YYYYMMDD') and report_name = 'SBSC' and unit = 'XLJ']]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="44fce705-0a6c-4001-a43f-01076c060de9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7daeaa9a-710c-4149-a0d9-1011e3f87466"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="f4e9c6a8-07c1-4b6b-a7db-9622918b1b6e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd4e695a-5fb0-41d0-a911-84a037eeca57"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="db15ff63-5b60-49c1-9311-9faa5b50d925">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7daeaa9a-710c-4149-a0d9-1011e3f87466"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="4d9a31ce-83d2-4c58-93d5-047a24bec17a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd4e695a-5fb0-41d0-a911-84a037eeca57"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

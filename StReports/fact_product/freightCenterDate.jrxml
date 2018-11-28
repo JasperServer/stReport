@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="freightCenterDate" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41474c65-a77d-4e6f-b685-54943746c84b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/freightCenterDate"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="476"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="524"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/freightCenterDate_files/main_jrxml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
+	<parameter name="stationUnitCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.hysr)        --货运收入
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode}  ) --replace(current_date,'-',''))  'XZHY' 
+		else  (select sum(fp.hysr)        --货运收入
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE + 1, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode} )  --replace(current_date + 1,'-',''))
+	    end as value,'元' as unit,'货运收入' as title 
+union ALL
+
+select case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.zcs)         --装车数
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode} ) --replace(current_date,'-',''))
+		else  (select sum(fp.zcs)         --装车数
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE + 1, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode} )  --replace(current_date + 1,'-',''))
+	    end as value,'辆' as unit,'装车数' as title 
+union ALL
+
+select case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.xcs)         --卸车数
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code =$P{stationUnitCode}  ) --replace(current_date,'-',''))
+		else  (select sum(fp.xcs)         --卸车数
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE + 1, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode} )  --replace(current_date + 1,'-',''))
+	    end as value,'辆' as unit,'卸车数' as title 
+union ALL
+
+select case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.fs)           --发送（吨）
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code =$P{stationUnitCode} ) --replace(current_date,'-',''))
+		else  (select sum(fp.fs)           --发送（吨）
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE + 1, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code =$P{stationUnitCode}  )  --replace(current_date + 1,'-',''))
+	    end as value,'吨' as unit,'发送（吨）' as title 
+union ALL
+
+select case when now() < (current_date + time '18:00:00')
+       then  (select sum(fp.dd)          --到达（吨）
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode} ) --replace(current_date,'-',''))
+		else  (select sum(fp.dd)          --到达（吨）
+				from dw.fact_product fp,dw.dim_station ds
+				where fp.datekey =to_char(CURRENT_DATE + 1, 'YYYYMMDD') 
+				and fp.station_code = ds.station_code
+				and ds.unit_code = $P{stationUnitCode}  )  --replace(current_date + 1,'-',''))
+	    end as value,'吨' as unit,'到达（吨）' as title 
+union ALL
+
+select coalesce(round(sum(cts),2),0) as value   --停时               中时不要，删除
+      ,'小时' as unit
+      ,'停时' as title
+from
+(select distinct station_code,unit_code from dw.dim_station) as a
+left join 
+(
+select distinct zmlm
+      ,ch
+      ,fcsj
+      ,arrive_time
+      ,case when count(*) = 0 then 1 else count(*) end as zycs
+      ,round((extract(epoch from fcsj - arrive_time))::numeric/3600::numeric/(case when count(*) = 0 then 1 else count(*) end)::numeric,2) as cts
+from basic.tsview
+where jobtype in ('装车','卸车')
+group by zmlm
+        ,ch
+        ,fcsj
+        ,arrive_time
+order by zmlm
+        ,ch
+) as b
+on a.station_code = b.zmlm 
+where a.unit_code =   $P{stationUnitCode} 
+group by a.unit_code
+
+union ALL
+
+select  sum(fp.zs)  as value,  '小时' as unit,'中时' as title       --停时               中时不要，删除
+from dw.fact_product fp,dw.dim_station ds
+where fp.datekey =to_char(CURRENT_DATE, 'YYYYMMDD') 
+and fp.station_code = ds.station_code
+and ds.unit_code =$P{stationUnitCode}    --'FBZ'  20181117]]>
+	</queryString>
+	<field name="value" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="unit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="unit"/>
+	</field>
+	<field name="title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="title"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="8676cfcd-6a94-4ff7-8625-730841bf9af0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5387d0dd-52af-4d0e-ab78-612880f44d39"/>
+				</reportElement>
+				<text><![CDATA[value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="752bb36a-3d31-4034-a9fc-8741fc61e167">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c10987ba-6bff-4a6f-bcb5-b4ec32091220"/>
+				</reportElement>
+				<text><![CDATA[unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="5d80b11a-3a05-4f42-8289-ce179b7e0029">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a7b4c11-dc5f-4b64-80ee-ff083d6e2a07"/>
+				</reportElement>
+				<text><![CDATA[title]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="30" uuid="7e7f6164-3b9b-4046-b13d-9ed7d40971a2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5387d0dd-52af-4d0e-ab78-612880f44d39"/>
+					<property name="net.sf.jasperreports.export.json.path" value="value"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="30" uuid="382eebe3-c124-4563-b678-6f051a3db673">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c10987ba-6bff-4a6f-bcb5-b4ec32091220"/>
+					<property name="net.sf.jasperreports.export.json.path" value="unit"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{unit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="30" uuid="d34db788-18ea-431a-9b0b-4eee5eb394b9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a7b4c11-dc5f-4b64-80ee-ff083d6e2a07"/>
+					<property name="net.sf.jasperreports.export.json.path" value="title"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="divide_bsjfc_total" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3425f08f-cbe4-4ed7-b31e-1b2849089441">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divide_bsjfc_total"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/divide_bsjfc_total_files/main_jrxml"/>
+	<queryString>
+		<![CDATA[select distinct ds.Zongju_code as code
+      ,ds.zongju_name as name
+      ,sum(dd.entry023) as bsjfc
+      ,'' as belongTo
+from lj18.data_date dd
+    ,dw.dim_station ds
+where d18_date = to_char(current_date - 1 ,'yyyyMMdd')
+  and report_name = 'YB5'
+  and ds.unit_type in ('ZSZ','CWD')
+group by ds.Zongju_code
+        ,ds.zongju_name
+union all
+select distinct ds.unit_code as code
+      ,ds.unit_name as name
+      ,sum(dd.entry023) as bsjfc
+      ,ds.Zongju_Code as belongTo   
+from lj18.data_date dd
+    ,dw.dim_station ds
+where d18_date = to_char(current_date - 1 ,'yyyyMMdd')
+  and report_name = 'YB5'
+  and ds.unit_code in (select unit_code from dw.dim_station where unit_type in ('ZSZ','CWD'))
+ group by ds.unit_code
+         ,ds.unit_name
+         ,ds.Zongju_Code 
+union all
+select ds.station_code as code
+      ,ds.station_name as name
+      ,(dd.entry023) as bsjfc
+      ,ds.unit_code as belongTo
+from lj18.data_date dd
+    ,dw.dim_station ds
+where d18_date = to_char(current_date - 1 ,'yyyyMMdd')
+  and report_name = 'YB5'
+  and ds.unit_code in (select unit_code from dw.dim_station where unit_type in ('ZSZ','CWD'))
+ group by ds.station_code
+         ,ds.station_name
+         ,bsjfc
+         ,ds.unit_code;]]>
+	</queryString>
+	<field name="code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="code"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="bsjfc" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="bsjfc"/>
+	</field>
+	<field name="belongto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="belongto"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="207da01a-fd6e-4849-8817-a948fb82992c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2a06b7b-732f-4a77-8dab-6b58a87940de"/>
+				</reportElement>
+				<text><![CDATA[code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="0" width="100" height="30" uuid="fe1c307b-b8e5-41a1-ba2e-f515646a888d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4623fff6-d66a-4584-af44-c89208310e1b"/>
+				</reportElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="100" height="30" uuid="3390df0d-f13a-4e61-9102-68f6d5d95663">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49127eca-4986-476c-97ae-2c41b8e720d2"/>
+				</reportElement>
+				<text><![CDATA[bsjfc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="100" height="30" uuid="99774249-5b86-4a4a-910d-734c9351a04d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="370d8e2b-3e12-4f43-87cf-b9b112b43763"/>
+				</reportElement>
+				<text><![CDATA[belongto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="ceb0296c-3778-42d8-8ee3-e92b11a317c9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2a06b7b-732f-4a77-8dab-6b58a87940de"/>
+					<property name="net.sf.jasperreports.export.json.path" value="code"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="0" width="100" height="30" uuid="83b4b980-6106-4bad-b372-7191e847a1ad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4623fff6-d66a-4584-af44-c89208310e1b"/>
+					<property name="net.sf.jasperreports.export.json.path" value="name"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="100" height="30" uuid="f142978e-4c9f-4695-92f0-07d936aeccfc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49127eca-4986-476c-97ae-2c41b8e720d2"/>
+					<property name="net.sf.jasperreports.export.json.path" value="bsjfc"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{bsjfc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="100" height="30" uuid="52b79cd4-ceeb-43f1-9d8f-e09a5582033f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="370d8e2b-3e12-4f43-87cf-b9b112b43763"/>
+					<property name="net.sf.jasperreports.export.json.path" value="belongto"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{belongto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

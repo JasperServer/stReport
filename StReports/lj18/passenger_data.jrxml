@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="passenger_data" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="afe6666c-6da9-431a-8b1f-215cd8520813">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="10.128.30.11:5632_stdb"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://10.128.30.26:8081/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/lj18/passenger_data"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/lj18/passenger_data_files/main_jrxml"/>
+	<queryString>
+		<![CDATA[select 
+ max(case year when 'thisYear' then thisyear else 0 end) as thisyear,
+max(case year when 'lastYear' then thisYear else 0 end) as lastyear,
+dates as date
+from(
+select round(entry002/10000,0) as thisYear,'thisYear' as year,to_char(to_date(d18_date,'YYYYmmdd'),'mm-dd') as dates
+from lj18.data_date
+where d18_date >= to_char(CURRENT_DATE-8, 'YYYYMMDD') and d18_date <= to_char(CURRENT_DATE-1, 'YYYYMMDD') and report_name = 'SBSC' and unit = 'XLJ'
+union all
+select round(entry002/10000,0) as lastYear,'lastYear' as year,to_char(to_date(d18_date,'YYYYmmdd'),'mm-dd') as dates
+from lj18.data_date
+where d18_date >= to_char((now()::timestamp + '-1 year 0 month -8 day '),'yyyymmdd') and d18_date <= to_char((now()::timestamp + '-1 year 0 month -1 day '),'yyyymmdd') and report_name = 'SBSC' and unit = 'XLJ'
+) as p
+group by dates  order by  dates]]>
+	</queryString>
+	<field name="thisyear" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="thisyear"/>
+	</field>
+	<field name="lastyear" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="lastyear"/>
+	</field>
+	<field name="date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="fe4d2394-db09-48f8-ac31-8a7cd0c1fde1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="778336f1-3aa2-4798-9002-da3bb601e6ce"/>
+				</reportElement>
+				<text><![CDATA[thisyear]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="eccb4df5-182a-481f-93d6-b83a3f1fc6f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33c76a37-9120-4d98-a64d-7df1d133465b"/>
+				</reportElement>
+				<text><![CDATA[lastyear]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="2a72b365-41e5-4988-a5ca-870271978d56">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89d6ca56-71b7-443e-b658-a99ef57a0c63"/>
+				</reportElement>
+				<text><![CDATA[date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="30" uuid="5f7fcb6c-0cd9-4719-8940-d0fefd25c7ba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="778336f1-3aa2-4798-9002-da3bb601e6ce"/>
+					<property name="net.sf.jasperreports.export.json.path" value="thisyear"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{thisyear}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="30" uuid="357d218f-4156-4d76-a427-da21633d351a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33c76a37-9120-4d98-a64d-7df1d133465b"/>
+					<property name="net.sf.jasperreports.export.json.path" value="lastyear"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{lastyear}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="30" uuid="5fd483c6-35a6-4e81-b24e-54e1f3958afe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89d6ca56-71b7-443e-b658-a99ef57a0c63"/>
+					<property name="net.sf.jasperreports.export.json.path" value="date"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
