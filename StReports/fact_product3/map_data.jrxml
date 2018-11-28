@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="map_data" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="672bb77f-00c9-4f76-89f3-813edc2851c8">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HAWQ"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -8,7 +8,6 @@
 	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/map_data"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="377"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="617"/>
-	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/map_data_files/main_jrxml"/>
 	<queryString>
 		<![CDATA[SELECT distinct station_code AS id,station_name AS name,BZZ_Longitude AS lng,BZZ_Latitude AS lat,'BZZ' as type FROM dw.dim_station WHERE  IS_BZZ = 'Y'
 union all

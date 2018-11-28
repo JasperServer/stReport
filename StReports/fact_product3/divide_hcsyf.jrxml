@@ -6,7 +6,6 @@
 	<property name="ireport.jasperserver.url" value="http://172.16.128.39:8080/jasperserver/"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin"/>
 	<property name="ireport.jasperserver.reportUnit" value="/reports/st_db/fact_product/divide_hcsyf"/>
-	<property name="ireport.jasperserver.report.resource" value="/reports/st_db/fact_product/divide_hcsyf_files/main_jrxml"/>
 	<queryString>
 		<![CDATA[select distinct ds.Zongju_code as code
       ,ds.zongju_name as name
